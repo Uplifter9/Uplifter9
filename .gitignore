@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.nox/
+.eggs/
+*.egg-info/
+*.egg
+
+# Flask
+instance/
+.webassets-cache
+
+# Uploads and Generated files
+backend/uploads/
+backend/generated/
+/uploads/
+/generated/

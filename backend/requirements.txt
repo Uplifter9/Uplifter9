@@ -1,0 +1,6 @@
+Flask
+Pillow
+reportlab
+PyPDF2
+Flask-Cors
+pdf2image
