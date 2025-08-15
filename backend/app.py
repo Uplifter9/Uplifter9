@@ -10,6 +10,7 @@ from pdf2image import convert_from_path
 from PyPDF2 import PdfWriter, PdfReader
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
@@ -19,7 +20,12 @@ CORS(app)
 # --- Configuration ---
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 GENERATED_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'generated')
-DAVID_FONT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DavidLibre-Regular.ttf')
+# --- Font Configuration ---
+FONT_PATHS = {
+    'DavidLibre': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DavidLibre-Regular.ttf'),
+    'FrankRuhlLibre': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FrankRuhlLibre-Regular.ttf'),
+    'Heebo': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Heebo-Regular.ttf'),
+}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['GENERATED_FOLDER'] = GENERATED_FOLDER
@@ -29,11 +35,17 @@ app.config['GENERATED_FOLDER'] = GENERATED_FOLDER
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['GENERATED_FOLDER'], exist_ok=True)
 
-# Register the Hebrew font with reportlab
-pdfmetrics.registerFont(TTFont('DavidLibre', DAVID_FONT_PATH))
+# Register all Hebrew fonts with reportlab
+for name, path in FONT_PATHS.items():
+    # We assume the files exist. If not, this will fail at runtime.
+    if os.path.exists(path):
+        pdfmetrics.registerFont(TTFont(name, path))
+
+# Fallback font if a requested font is not available
+DEFAULT_FONT = 'DavidLibre'
 
 
-def create_appendix_page(input_path, title_text, font_size):
+def create_appendix_page(input_path, title_text, font_size, font_family):
     """
     Creates a new A4 PDF page with a title and the content of the input file (image or PDF page).
     Returns the path to the newly created PDF page.
@@ -45,8 +57,13 @@ def create_appendix_page(input_path, title_text, font_size):
     width, height = A4  # Page dimensions
 
     # --- Draw Title ---
-    c.setFont('DavidLibre', font_size)
-    c.drawRightString(width - 50, height - 70, title_text)
+    # Use the selected font, or fallback to the default if it's not registered
+    selected_font = font_family if font_family in pdfmetrics.getRegisteredFontNames() else DEFAULT_FONT
+
+    c.setFillColor(colors.black)
+    c.setFont(selected_font, font_size)
+    # Position the title at a standard 1-inch (72 points) margin from the top and right
+    c.drawRightString(width - 72, height - 72, title_text)
 
     # --- Draw Content (Image) ---
     # We use Pillow to open the image, which can be the original image or a converted PDF page
@@ -56,7 +73,8 @@ def create_appendix_page(input_path, title_text, font_size):
     # Calculate scaling factor to fit the page, preserving aspect ratio
     margin = 50
     available_width = width - 2 * margin
-    available_height = height - 120 # Extra space for title
+    # Adjust available height for content based on new title position
+    available_height = height - 144 # 2 * 72 points for top and bottom margins
 
     scale = min(available_width / img_width, available_height / img_height)
 
@@ -78,6 +96,7 @@ def generate_pdf():
     data = request.get_json()
     files_data = data.get('files', [])
     font_size = int(data.get('fontSize', 48))
+    font_family = data.get('fontFamily', DEFAULT_FONT)
 
     if not files_data:
         return jsonify({'error': 'No files provided'}), 400
@@ -97,7 +116,7 @@ def generate_pdf():
             file_ext = os.path.splitext(original_filename)[1].lower()
 
             if file_ext in ['.png', '.jpg', '.jpeg']:
-                page_pdf = create_appendix_page(input_path, title, font_size)
+                page_pdf = create_appendix_page(input_path, title, font_size, font_family)
                 generated_pages.append(page_pdf)
 
             elif file_ext == '.pdf':
@@ -110,7 +129,7 @@ def generate_pdf():
 
                     # Create a new title for multi-page PDFs
                     page_title = f"{title} (עמוד {i+1})"
-                    page_pdf = create_appendix_page(temp_img_path, page_title, font_size)
+                    page_pdf = create_appendix_page(temp_img_path, page_title, font_size, font_family)
                     generated_pages.append(page_pdf)
 
         if not generated_pages:
