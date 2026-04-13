@@ -8,12 +8,14 @@ import {
 } from './countryTimezones';
 import './App.css';
 
-const GEOJSON_URL = '/textures/countries.geojson';
+const BASE = import.meta.env.BASE_URL;
 
-const EARTH_TEXTURE = '/textures/earth-blue-marble.jpg';
-const EARTH_BUMP = '/textures/earth-topology.png';
-const EARTH_SPECULAR = '/textures/earth-water.png';
-const BACKGROUND_IMG = '/textures/night-sky.png';
+const GEOJSON_URL = `${BASE}textures/countries.geojson`;
+
+const EARTH_TEXTURE = `${BASE}textures/earth-blue-marble.jpg`;
+const EARTH_BUMP = `${BASE}textures/earth-topology.png`;
+const EARTH_SPECULAR = `${BASE}textures/earth-water.png`;
+const BACKGROUND_IMG = `${BASE}textures/night-sky.png`;
 
 function formatTimeDisplay(timezone) {
   try {
