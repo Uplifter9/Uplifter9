@@ -8,13 +8,12 @@ import {
 } from './countryTimezones';
 import './App.css';
 
-const GEOJSON_URL =
-  'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson';
+const GEOJSON_URL = '/textures/countries.geojson';
 
-const EARTH_TEXTURE = 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
-const EARTH_BUMP = 'https://unpkg.com/three-globe/example/img/earth-topology.png';
-const EARTH_SPECULAR = 'https://unpkg.com/three-globe/example/img/earth-water.png';
-const BACKGROUND_IMG = 'https://unpkg.com/three-globe/example/img/night-sky.png';
+const EARTH_TEXTURE = '/textures/earth-blue-marble.jpg';
+const EARTH_BUMP = '/textures/earth-topology.png';
+const EARTH_SPECULAR = '/textures/earth-water.png';
+const BACKGROUND_IMG = '/textures/night-sky.png';
 
 function formatTimeDisplay(timezone) {
   try {
