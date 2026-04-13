@@ -96,11 +96,14 @@ export default function App() {
     setGlobeReady(true);
     if (globeRef.current) {
       globeRef.current.pointOfView({ lat: 31.7683, lng: 35.2137, altitude: 2.5 }, 1200);
-      // Enable slow auto-rotation
       const controls = globeRef.current.controls();
       if (controls) {
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.4;
+        // Stop auto-rotation as soon as user interacts
+        controls.addEventListener('start', () => {
+          controls.autoRotate = false;
+        });
       }
     }
   }, []);
