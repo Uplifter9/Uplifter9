@@ -147,30 +147,25 @@ body {
 
 /* ---- INFO PANEL ---- */
 .info-panel {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  z-index: 20;
-  background: rgba(5, 15, 35, 0.88);
-  border: 1px solid rgba(100,170,255,0.3);
-  border-radius: 18px;
-  padding: 14px 22px;
-  min-width: 260px;
-  max-width: 90vw;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background: rgba(5, 15, 35, 0.75);
+  border-bottom: 1px solid rgba(100,170,255,0.2);
+  padding: 10px 20px;
   text-align: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 40px rgba(50,120,255,0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
 }
 
 .info-panel.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  background: rgba(5, 15, 35, 0.88);
+  border-bottom: 1px solid rgba(100,170,255,0.35);
 }
 
 .info-content {

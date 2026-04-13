@@ -183,6 +183,34 @@ export default function App() {
         </div>
       </header>
 
+      {/* Country info panel — between header and globe */}
+      <div className={`info-panel${activeInfo ? ' visible' : ''}`}>
+        {activeInfo ? (
+          <div className="info-content">
+            <div className="country-names">
+              <span className="country-name-en">{activeInfo.nameEn}</span>
+              <span className="country-name-he">{activeInfo.name}</span>
+            </div>
+            {activeTime ? (
+              <div className="time-block">
+                <div className="country-time">{activeTime.time}</div>
+                <div className="country-date">{activeTime.date}</div>
+                <div className={`time-diff ${timeDiff === 0 ? 'same' : timeDiff > 0 ? 'ahead' : 'behind'}`}>
+                  {timeDiffStr}
+                </div>
+              </div>
+            ) : (
+              <div className="no-data">אין נתוני שעה זמינים</div>
+            )}
+            {isSelected && <div className="pinned-badge">📌 מדינה מסומנת</div>}
+          </div>
+        ) : (
+          <div className="hint-text">
+            {globeReady ? 'גע במדינה לראות את השעה' : 'טוען גלובוס...'}
+          </div>
+        )}
+      </div>
+
       {/* Globe */}
       <main className="globe-wrapper">
         <Globe
@@ -207,34 +235,6 @@ export default function App() {
           enablePointerInteraction={true}
         />
       </main>
-
-      {/* Country info panel */}
-      <div className={`info-panel${activeInfo ? ' visible' : ''}`}>
-        {activeInfo ? (
-          <div className="info-content">
-            <div className="country-names">
-              <span className="country-name-en">{activeInfo.nameEn}</span>
-              <span className="country-name-he">{activeInfo.name}</span>
-            </div>
-            {activeTime ? (
-              <div className="time-block">
-                <div className="country-time">{activeTime.time}</div>
-                <div className="country-date">{activeTime.date}</div>
-                <div className={`time-diff ${timeDiff === 0 ? 'same' : timeDiff > 0 ? 'ahead' : 'behind'}`}>
-                  {timeDiffStr}
-                </div>
-              </div>
-            ) : (
-              <div className="no-data">אין נתוני שעה זמינים</div>
-            )}
-            {isSelected && <div className="pinned-badge">📌 מדינה מסומנת</div>}
-          </div>
-        ) : (
-          <div className="hint-text">
-            {globeReady ? 'העבר עכבר מעל מדינה לראות את השעה' : 'טוען גלובוס...'}
-          </div>
-        )}
-      </div>
 
       {/* Controls hint */}
       <div className="controls-hint">
