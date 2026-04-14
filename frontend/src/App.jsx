@@ -1,195 +1,330 @@
-import React, { useState } from 'react';
-import { FiUploadCloud, FiFileText, FiImage, FiTrash2, FiChevronsRight } from 'react-icons/fi';
-import { FaFilePdf } from 'react-icons/fa';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import Globe from 'react-globe.gl';
+import {
+  getCountryInfo,
+  getTimeDiffFromIsrael,
+  formatTimeDiff,
+  ISRAEL_TIMEZONE,
+} from './countryTimezones';
 import './App.css';
 
-const API_URL = 'http://127.0.0.1:5001';
+const BASE = import.meta.env.BASE_URL;
+const GEOJSON_URL = `${BASE}textures/countries.geojson`;
+const EARTH_TEXTURE = `${BASE}textures/earth-blue-marble.jpg`;
+const EARTH_BUMP = `${BASE}textures/earth-topology.png`;
+const EARTH_SPECULAR = `${BASE}textures/earth-water.png`;
+const BACKGROUND_IMG = `${BASE}textures/night-sky.png`;
 
-const getHebrewChar = (index) => {
-  const hebrewAlphabet = 'אבגדהוזחטיכלמנסעפצקרשת';
-  if (index < hebrewAlphabet.length) {
-    return hebrewAlphabet[index];
-  }
-  const primaryIndex = Math.floor(index / hebrewAlphabet.length) - 1;
-  const secondaryIndex = index % hebrewAlphabet.length;
-  return getHebrewChar(primaryIndex) + getHebrewChar(secondaryIndex);
+const SIDEBAR_W = 260;
+
+// Fallback ISO_A2 for countries where GeoJSON has ISO_A2="-99"
+const ADM0_TO_ISO2 = {
+  FRA: 'FR', NOR: 'NO', NLD: 'NL', ESP: 'ES', PRT: 'PT',
+  FIN: 'FI', SWE: 'SE', DNK: 'DK', BEL: 'BE', DEU: 'DE',
+  AUT: 'AT', CHE: 'CH', ITA: 'IT', GRC: 'GR', POL: 'PL',
+  CZE: 'CZ', SVK: 'SK', HUN: 'HU', ROU: 'RO', BGR: 'BG',
+  HRV: 'HR', SVN: 'SI', SRB: 'RS', BIH: 'BA', MNE: 'ME',
+  MKD: 'MK', ALB: 'AL', LTU: 'LT', LVA: 'LV', EST: 'EE',
+  BLR: 'BY', UKR: 'UA', MDA: 'MD', RUS: 'RU', GEO: 'GE',
+  ARM: 'AM', AZE: 'AZ', KAZ: 'KZ', XKX: 'XK',
 };
 
-const getFileIcon = (fileName) => {
-  const extension = fileName.split('.').pop().toLowerCase();
-  if (extension === 'pdf') {
-    return <FaFilePdf className="file-icon" style={{ color: '#E53E3E' }} />;
+// Fix: treat ISO_A3="-99" as missing, fall back to ADM0_A3
+function getIso3(feat) {
+  const iso3 = feat?.properties?.ISO_A3;
+  if (iso3 && iso3 !== '-99') return iso3;
+  return feat?.properties?.ADM0_A3 || '';
+}
+
+function getFlag(feat) {
+  let iso2 = feat?.properties?.ISO_A2;
+  if (!iso2 || iso2 === '-99') {
+    const adm0 = feat?.properties?.ADM0_A3 || '';
+    iso2 = ADM0_TO_ISO2[adm0] || null;
   }
-  if (['png', 'jpg', 'jpeg', 'gif'].includes(extension)) {
-    return <FiImage className="file-icon" style={{ color: '#48BB78' }} />;
-  }
-  return <FiFileText className="file-icon" />;
-};
+  if (!iso2 || iso2 === '-99' || iso2.length !== 2) return '🌐';
+  try {
+    return String.fromCodePoint(
+      ...iso2.toUpperCase().split('').map(c => 0x1F1E6 + c.charCodeAt(0) - 65)
+    );
+  } catch { return '🌐'; }
+}
 
-const FONT_OPTIONS = [
-  { value: 'DavidLibre', label: 'דוד ליברה (David Libre)' },
-  { value: 'FrankRuhlLibre', label: 'פרנק ריהל ליברה (Frank Ruhl Libre)' },
-  { value: 'Heebo', label: 'היבו (Heebo)' },
-];
-
-function App() {
-  const [files, setFiles] = useState([]);
-  const [fontSize, setFontSize] = useState(48);
-  const [fontFamily, setFontFamily] = useState(FONT_OPTIONS[0].value);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const processFiles = async (selectedFiles) => {
-    if (selectedFiles.length === 0) return;
-
-    const formData = new FormData();
-    selectedFiles.forEach(file => {
-      formData.append('files', file);
-    });
-
-    try {
-      const response = await fetch(`${API_URL}/api/upload`, { method: 'POST', body: formData });
-      if (!response.ok) throw new Error('File upload failed');
-      const result = await response.json();
-
-      const newFiles = result.files.map((fileInfo, index) => ({
-        name: fileInfo.name,
-        id: `${fileInfo.name}-${Date.now()}-${index}`,
-        title: `נספח ${getHebrewChar(files.length + index)}'`,
-      }));
-
-      setFiles(prevFiles => [...prevFiles, ...newFiles]);
-    } catch (error) {
-      console.error('Error uploading files:', error);
-      alert('שגיאה בהעלאת קבצים. אנא נסה שוב.');
+function getLargestPolygonCenter(feature) {
+  const { type, coordinates } = feature.geometry;
+  const polygons = type === 'Polygon' ? [coordinates] : type === 'MultiPolygon' ? coordinates : [];
+  let best = null, bestArea = 0;
+  for (const poly of polygons) {
+    const ring = poly[0];
+    const lngs = ring.map(c => c[0]);
+    const lats = ring.map(c => c[1]);
+    const area = (Math.max(...lngs) - Math.min(...lngs)) * (Math.max(...lats) - Math.min(...lats));
+    if (area > bestArea) {
+      bestArea = area;
+      best = {
+        lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+        lng: (Math.min(...lngs) + Math.max(...lngs)) / 2,
+      };
     }
-  };
+  }
+  return best;
+}
 
-  const handleFileChange = (event) => {
-    processFiles(Array.from(event.target.files));
-  };
-
-  const handleRemoveFile = (id) => {
-    setFiles(files.filter(file => file.id !== id));
-  };
-
-  const handleTitleChange = (id, newTitle) => {
-    setFiles(files.map(item => item.id === id ? { ...item, title: newTitle } : item));
-  };
-
-  // Drag and Drop Handlers
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
-    processFiles(Array.from(e.dataTransfer.files));
-  };
-
-  const handleGenerateClick = async () => {
-    if (files.length === 0) return;
-    setIsGenerating(true);
-
-    const payload = {
-      files: files.map(f => ({ name: f.name, title: f.title })),
-      fontSize: fontSize,
-      fontFamily: fontFamily,
+function formatTimeDisplay(timezone) {
+  try {
+    const now = new Date();
+    return {
+      time: new Intl.DateTimeFormat('he-IL', { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(now),
+      date: new Intl.DateTimeFormat('he-IL', { timeZone: timezone, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(now),
     };
+  } catch { return null; }
+}
 
-    try {
-      const response = await fetch(`${API_URL}/api/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+export default function App() {
+  const globeRef = useRef(null);
+  const [countries, setCountries] = useState({ features: [] });
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [israelTime, setIsraelTime] = useState(null);
+  const [activeTime, setActiveTime] = useState(null);
+  const [globeReady, setGlobeReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const tickRef = useRef(null);
+  const searchRef = useRef(null);
 
-      if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
+  useEffect(() => {
+    fetch(GEOJSON_URL).then(r => r.json()).then(data => setCountries(data)).catch(console.error);
+  }, []);
 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = 'נספחים.pdf';
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert('שגיאה ביצירת ה-PDF. אנא בדוק את המסוף לקבלת פרטים.');
-    } finally {
-      setIsGenerating(false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const tick = () => {
+      setIsraelTime(formatTimeDisplay(ISRAEL_TIMEZONE));
+      const active = hoveredCountry || selectedCountry;
+      if (active) {
+        const info = getCountryInfo(getIso3(active));
+        if (info) { setActiveTime(formatTimeDisplay(info.timezone)); return; }
+      }
+      setActiveTime(null);
+    };
+    tick();
+    tickRef.current = setInterval(tick, 1000);
+    return () => clearInterval(tickRef.current);
+  }, [hoveredCountry, selectedCountry]);
+
+  // Build sorted country list from GeoJSON features
+  const countryList = useMemo(() => {
+    return countries.features
+      .map(feat => {
+        const iso3 = getIso3(feat);
+        const info = getCountryInfo(iso3);
+        if (!info) return null;
+        return { feat, iso3, info, flag: getFlag(feat) };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.info.name.localeCompare(b.info.name, 'he'));
+  }, [countries]);
+
+  const filteredList = useMemo(() => {
+    if (!searchQuery.trim()) return countryList;
+    const q = searchQuery.toLowerCase().trim();
+    return countryList.filter(c =>
+      c.info.name.includes(searchQuery.trim()) ||
+      c.info.nameEn.toLowerCase().includes(q)
+    );
+  }, [countryList, searchQuery]);
+
+  const handleGlobeReady = useCallback(() => {
+    setGlobeReady(true);
+    if (globeRef.current) {
+      globeRef.current.pointOfView({ lat: 31.7683, lng: 35.2137, altitude: 2.5 }, 1200);
+      const controls = globeRef.current.controls();
+      if (controls) {
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.4;
+        controls.addEventListener('start', () => { controls.autoRotate = false; });
+      }
     }
-  };
+  }, []);
+
+  const getCountryColor = useCallback((feat) => {
+    const iso = getIso3(feat);
+    if (selectedCountry && getIso3(selectedCountry) === iso) return 'rgba(255,200,0,0.75)';
+    if (hoveredCountry && getIso3(hoveredCountry) === iso) return 'rgba(80,180,255,0.55)';
+    return 'rgba(255,255,255,0.03)';
+  }, [hoveredCountry, selectedCountry]);
+
+  const getCountryStroke = useCallback((feat) => {
+    const iso = getIso3(feat);
+    if (selectedCountry && getIso3(selectedCountry) === iso) return '#FFD700';
+    if (hoveredCountry && getIso3(hoveredCountry) === iso) return '#50B4FF';
+    return 'rgba(255,255,255,0.18)';
+  }, [hoveredCountry, selectedCountry]);
+
+  const getCountryAlt = useCallback((feat) => {
+    const iso = getIso3(feat);
+    if (selectedCountry && getIso3(selectedCountry) === iso) return 0.013;
+    if (hoveredCountry && getIso3(hoveredCountry) === iso) return 0.008;
+    return 0.001;
+  }, [hoveredCountry, selectedCountry]);
+
+  const handleCountryHover = useCallback((feat) => setHoveredCountry(feat || null), []);
+
+  const handleCountryClick = useCallback((feat) => {
+    if (!feat) return;
+    setSelectedCountry(prev => (prev && getIso3(prev) === getIso3(feat)) ? null : feat);
+  }, []);
+
+  const handleSelectFromList = useCallback((item) => {
+    setSelectedCountry(item.feat);
+    setSidebarOpen(false);
+    setSearchQuery('');
+    const center = getLargestPolygonCenter(item.feat);
+    if (center && globeRef.current) {
+      globeRef.current.pointOfView({ lat: center.lat, lng: center.lng, altitude: 1.8 }, 900);
+    }
+  }, []);
+
+  const activeCountry = hoveredCountry || selectedCountry;
+  const activeIso = getIso3(activeCountry);
+  const activeInfo = activeIso ? getCountryInfo(activeIso) : null;
+  const timeDiff = activeInfo ? getTimeDiffFromIsrael(activeInfo.timezone) : null;
+  const timeDiffStr = timeDiff !== null ? formatTimeDiff(timeDiff) : null;
+  const isSelected = selectedCountry && activeInfo && getIso3(selectedCountry) === activeIso;
+  const activeFlag = activeCountry ? getFlag(activeCountry) : '';
+
+  const sidebarVisible = !isMobile || sidebarOpen;
+  const globeW = isMobile ? window.innerWidth : window.innerWidth - SIDEBAR_W;
+  const headerH = isMobile ? 58 : 60;
+  const infoPanelH = 70;
+  const globeSize = Math.min(globeW, window.innerHeight - headerH - infoPanelH);
 
   return (
-    <div className="container">
-      <header>
-        <h1>מחולל נספחים מקצועי</h1>
-        <p>העלה קבצים, סדר אותם, והפק מסמך PDF מאוחד בקלות</p>
+    <div className="app-container">
+      <div className="space-bg" />
+
+      {/* Header */}
+      <header className="top-bar">
+        <h1 className="app-title">
+          <span className="globe-icon">🌍</span>
+          גלובוס שעות עולמי
+        </h1>
+        <div className="header-right">
+          <div className="israel-clock">
+            <span className="israel-flag">🇮🇱</span>
+            <div className="israel-clock-text">
+              <span className="israel-label">ישראל</span>
+              <span className="israel-time">{israelTime?.time || '--:--:--'}</span>
+              <span className="israel-date">{israelTime?.date || ''}</span>
+            </div>
+          </div>
+          {isMobile && (
+            <button className="sidebar-toggle" onClick={() => setSidebarOpen(o => !o)} aria-label="רשימת מדינות">
+              {sidebarOpen ? '✕' : '☰'}
+            </button>
+          )}
+        </div>
       </header>
 
-      <main>
-        <div className="controls-container">
-          <div className="control-group">
-            <label htmlFor="font-family-select">בחר גופן (פונט)</label>
-            <select id="font-family-select" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} style={{padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)'}}>
-              {FONT_OPTIONS.map(opt => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="control-group">
-            <label htmlFor="font-size-slider">גודל גופן לכותרת: {fontSize}pt</label>
-            <input type="range" id="font-size-slider" className="font-slider" min="4" max="168" value={fontSize} onChange={(e) => setFontSize(e.target.value)} />
-          </div>
-        </div>
-
-        <div className={`file-uploader ${isDragging ? 'drag-over' : ''}`} onClick={() => document.getElementById('file-input').click()} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
-          <div className="file-uploader-content">
-            <FiUploadCloud size={50} />
-            <p>גרור ושחרר קבצים כאן, או לחץ לבחירה</p>
-          </div>
-          <input type="file" id="file-input" multiple onChange={handleFileChange} style={{ display: 'none' }} />
-        </div>
-
-        {files.length > 0 && (
-          <div className="file-list">
-            {files.map((item) => (
-              <div key={item.id} className="file-item">
-                <div className="file-info">
-                  {getFileIcon(item.name)}
-                  <span>{item.name}</span>
-                  <input type="text" value={item.title} onChange={(e) => handleTitleChange(item.id, e.target.value)} placeholder="שם הנספח" />
-                </div>
-                <div className="file-item-actions">
-                  <button onClick={() => handleRemoveFile(item.id)} title="הסר קובץ">
-                    <FiTrash2 />
-                  </button>
-                </div>
+      {/* Info panel */}
+      <div className={`info-panel${activeInfo ? ' visible' : ''}`}>
+        {activeInfo ? (
+          <div className="info-content">
+            <span className="active-flag">{activeFlag}</span>
+            <div className="country-names">
+              <span className="country-name-he">{activeInfo.name}</span>
+              <span className="country-name-en">{activeInfo.nameEn}</span>
+            </div>
+            {activeTime && (
+              <div className="time-block">
+                <div className="country-time">{activeTime.time}</div>
+                <div className={`time-diff ${timeDiff === 0 ? 'same' : timeDiff > 0 ? 'ahead' : 'behind'}`}>{timeDiffStr}</div>
               </div>
+            )}
+            {isSelected && <div className="pinned-badge">📌</div>}
+          </div>
+        ) : (
+          <div className="hint-text">{globeReady ? 'גע במדינה לראות את השעה' : 'טוען גלובוס...'}</div>
+        )}
+      </div>
+
+      {/* Main content: Globe + Sidebar */}
+      <div className="main-content">
+        {/* Globe */}
+        <main className="globe-wrapper">
+          <Globe
+            ref={globeRef}
+            width={globeSize}
+            height={globeSize}
+            globeImageUrl={EARTH_TEXTURE}
+            bumpImageUrl={EARTH_BUMP}
+            specularMapUrl={EARTH_SPECULAR}
+            backgroundImageUrl={BACKGROUND_IMG}
+            polygonsData={countries.features}
+            polygonCapColor={getCountryColor}
+            polygonSideColor={() => 'rgba(0,0,0,0)'}
+            polygonStrokeColor={getCountryStroke}
+            polygonAltitude={getCountryAlt}
+            onPolygonHover={handleCountryHover}
+            onPolygonClick={handleCountryClick}
+            polygonLabel={() => ''}
+            atmosphereColor="rgba(100,170,255,0.9)"
+            atmosphereAltitude={0.2}
+            onGlobeReady={handleGlobeReady}
+            enablePointerInteraction={true}
+          />
+        </main>
+
+        {/* Sidebar */}
+        {isMobile && sidebarOpen && (
+          <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+        )}
+        <aside className={`sidebar${sidebarVisible ? ' open' : ''}`}>
+          <div className="search-box">
+            <span className="search-icon">🔍</span>
+            <input
+              ref={searchRef}
+              type="text"
+              placeholder="חפש מדינה..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+            {searchQuery && (
+              <button className="search-clear" onClick={() => setSearchQuery('')}>✕</button>
+            )}
+          </div>
+          <div className="country-list">
+            {filteredList.length === 0 && (
+              <div className="no-results">לא נמצאו תוצאות</div>
+            )}
+            {filteredList.map(item => (
+              <button
+                key={item.iso3}
+                className={`country-item${selectedCountry && getIso3(selectedCountry) === item.iso3 ? ' selected' : ''}`}
+                onClick={() => handleSelectFromList(item)}
+              >
+                <span className="item-flag">{item.flag}</span>
+                <span className="item-name">{item.info.name}</span>
+              </button>
             ))}
           </div>
-        )}
+        </aside>
+      </div>
 
-        {files.length > 0 && (
-          <div className="actions">
-            <button className="generate-button" onClick={handleGenerateClick} disabled={isGenerating}>
-              {isGenerating ? 'מעבד...' : 'הפק את מסמך ה-PDF'}
-              {!isGenerating && <FiChevronsRight />}
-            </button>
-          </div>
-        )}
-      </main>
+      {/* Controls hint */}
+      <div className="controls-hint">
+        <span>גלגלת: זום</span>
+        <span>גרור: סיבוב</span>
+        <span>לחץ: סימון</span>
+      </div>
     </div>
   );
 }
-
-export default App;
