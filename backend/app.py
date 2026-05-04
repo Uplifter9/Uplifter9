@@ -1,189 +1,172 @@
 import os
-import uuid
-from flask import Flask, request, jsonify, send_file
+import requests
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from werkzeug.utils import secure_filename
-
-# PDF and Image processing
-from PIL import Image
-from pdf2image import convert_from_path
-from PyPDF2 import PdfWriter, PdfReader
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 
 app = Flask(__name__)
 CORS(app)
 
-# --- Configuration ---
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
-GENERATED_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'generated')
-# --- Font Configuration ---
-FONT_PATHS = {
-    'DavidLibre': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DavidLibre-Regular.ttf'),
-    'FrankRuhlLibre': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'FrankRuhlLibre-Regular.ttf'),
-    'Heebo': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Heebo-Regular.ttf'),
+RADIO_BROWSER_HOSTS = [
+    "https://de1.api.radio-browser.info",
+    "https://at1.api.radio-browser.info",
+    "https://nl1.api.radio-browser.info",
+]
+
+HEADERS = {
+    "User-Agent": "GlobalRadioApp/1.0",
+    "Content-Type": "application/json",
 }
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['GENERATED_FOLDER'] = GENERATED_FOLDER
 
-# --- Setup ---
-# Ensure directories exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-os.makedirs(app.config['GENERATED_FOLDER'], exist_ok=True)
-
-# Register all Hebrew fonts with reportlab
-for name, path in FONT_PATHS.items():
-    # We assume the files exist. If not, this will fail at runtime.
-    if os.path.exists(path):
-        pdfmetrics.registerFont(TTFont(name, path))
-
-# Fallback font if a requested font is not available
-DEFAULT_FONT = 'DavidLibre'
-
-
-def create_appendix_page(input_path, title_text, font_size, font_family):
-    """
-    Creates a new A4 PDF page with a title and the content of the input file (image or PDF page).
-    Returns the path to the newly created PDF page.
-    """
-    output_filename = f"{uuid.uuid4()}.pdf"
-    output_path = os.path.join(app.config['GENERATED_FOLDER'], output_filename)
-
-    c = canvas.Canvas(output_path, pagesize=A4)
-    width, height = A4  # Page dimensions
-
-    # --- Draw Title ---
-    # Use the selected font, or fallback to the default if it's not registered
-    selected_font = font_family if font_family in pdfmetrics.getRegisteredFontNames() else DEFAULT_FONT
-
-    c.setFillColor(colors.black)
-    c.setFont(selected_font, font_size)
-    # Position the title at a standard 1-inch (72 points) margin from the top and right
-    c.drawRightString(width - 72, height - 72, title_text)
-
-    # --- Draw Content (Image) ---
-    # We use Pillow to open the image, which can be the original image or a converted PDF page
-    img = Image.open(input_path)
-    img_width, img_height = img.size
-
-    # Calculate scaling factor to fit the page, preserving aspect ratio
-    margin = 50
-    available_width = width - 2 * margin
-    # Adjust available height for content based on new title position
-    available_height = height - 144 # 2 * 72 points for top and bottom margins
-
-    scale = min(available_width / img_width, available_height / img_height)
-
-    new_width = img_width * scale
-    new_height = img_height * scale
-
-    # Center the image on the page
-    x_pos = (width - new_width) / 2
-    y_pos = (available_height - new_height) / 2 + margin
-
-    c.drawImage(input_path, x_pos, y_pos, width=new_width, height=new_height)
-
-    c.save()
-    return output_path
+def radio_get(path, params=None):
+    for host in RADIO_BROWSER_HOSTS:
+        try:
+            resp = requests.get(
+                f"{host}/json/{path}",
+                params=params,
+                headers=HEADERS,
+                timeout=8,
+            )
+            if resp.ok:
+                return resp.json()
+        except requests.RequestException:
+            continue
+    return None
 
 
-@app.route('/api/generate', methods=['POST'])
-def generate_pdf():
-    data = request.get_json()
-    files_data = data.get('files', [])
-    font_size = int(data.get('fontSize', 48))
-    font_family = data.get('fontFamily', DEFAULT_FONT)
-
-    if not files_data:
-        return jsonify({'error': 'No files provided'}), 400
-
-    generated_pages = []
-    temp_image_files = []
-
-    try:
-        for item in files_data:
-            original_filename = secure_filename(item['name'])
-            title = item['title']
-            input_path = os.path.join(app.config['UPLOAD_FOLDER'], original_filename)
-
-            if not os.path.exists(input_path):
-                continue
-
-            file_ext = os.path.splitext(original_filename)[1].lower()
-
-            if file_ext in ['.png', '.jpg', '.jpeg']:
-                page_pdf = create_appendix_page(input_path, title, font_size, font_family)
-                generated_pages.append(page_pdf)
-
-            elif file_ext == '.pdf':
-                # Convert each page of the PDF to an image
-                images = convert_from_path(input_path)
-                for i, image in enumerate(images):
-                    temp_img_path = os.path.join(app.config['GENERATED_FOLDER'], f"{uuid.uuid4()}.png")
-                    image.save(temp_img_path, 'PNG')
-                    temp_image_files.append(temp_img_path)
-
-                    # Create a new title for multi-page PDFs
-                    page_title = f"{title} (עמוד {i+1})"
-                    page_pdf = create_appendix_page(temp_img_path, page_title, font_size, font_family)
-                    generated_pages.append(page_pdf)
-
-        if not generated_pages:
-            return jsonify({'error': 'Could not process any of the files'}), 500
-
-        # --- Merge all generated pages into a single PDF ---
-        merger = PdfWriter()
-        for pdf_path in generated_pages:
-            merger.append(pdf_path)
-
-        final_pdf_name = f"נספחים_{uuid.uuid4()}.pdf"
-        final_pdf_path = os.path.join(app.config['GENERATED_FOLDER'], final_pdf_name)
-        merger.write(final_pdf_path)
-        merger.close()
-
-        return send_file(final_pdf_path, as_attachment=True, download_name='נספחים.pdf')
-
-    finally:
-        # --- Cleanup ---
-        for path in generated_pages + temp_image_files:
-            if os.path.exists(path):
-                os.remove(path)
-        # We can also clean up the original uploads here if desired
-        # for item in files_data:
-        #     original_filename = secure_filename(item['name'])
-        #     input_path = os.path.join(app.config['UPLOAD_FOLDER'], original_filename)
-        #     if os.path.exists(input_path):
-        #         os.remove(input_path)
+def format_station(s):
+    return {
+        "id": s.get("stationuuid", ""),
+        "name": s.get("name", ""),
+        "url": s.get("url_resolved") or s.get("url", ""),
+        "favicon": s.get("favicon", ""),
+        "country": s.get("country", ""),
+        "countrycode": s.get("countrycode", ""),
+        "language": s.get("language", ""),
+        "tags": s.get("tags", ""),
+        "bitrate": s.get("bitrate", 0),
+        "votes": s.get("votes", 0),
+        "codec": s.get("codec", ""),
+        "homepage": s.get("homepage", ""),
+    }
 
 
-# Keep the upload endpoint for receiving files first
-@app.route('/api/upload', methods=['POST'])
-def upload_files():
-    if 'files' not in request.files:
-        return jsonify({'error': 'No files part in the request'}), 400
-
-    files = request.files.getlist('files')
-
-    if not files or files[0].filename == '':
-        return jsonify({'error': 'No selected files'}), 400
-
-    saved_files_info = []
-    for file in files:
-        if file:
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
-            saved_files_info.append({'name': filename, 'size': os.path.getsize(filepath)})
-
-    return jsonify({
-        'message': 'Files uploaded successfully',
-        'files': saved_files_info
-    }), 200
+@app.route("/api/stations/top", methods=["GET"])
+def top_stations():
+    limit = request.args.get("limit", 60, type=int)
+    data = radio_get("stations/topvote", {"limit": limit, "hidebroken": "true"})
+    if data is None:
+        return jsonify({"error": "Failed to fetch stations"}), 502
+    return jsonify([format_station(s) for s in data])
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+@app.route("/api/stations/search", methods=["GET"])
+def search_stations():
+    params = {
+        "hidebroken": "true",
+        "limit": request.args.get("limit", 60, type=int),
+        "offset": request.args.get("offset", 0, type=int),
+        "order": "votes",
+        "reverse": "true",
+    }
+    name = request.args.get("name")
+    country = request.args.get("country")
+    language = request.args.get("language")
+    tag = request.args.get("tag")
+
+    if name:
+        params["name"] = name
+    if country:
+        params["country"] = country
+    if language:
+        params["language"] = language
+    if tag:
+        params["tag"] = tag
+
+    data = radio_get("stations/search", params)
+    if data is None:
+        return jsonify({"error": "Failed to fetch stations"}), 502
+    return jsonify([format_station(s) for s in data])
+
+
+@app.route("/api/stations/by-language/<language>", methods=["GET"])
+def stations_by_language(language):
+    limit = request.args.get("limit", 40, type=int)
+    data = radio_get(
+        f"stations/bylanguage/{language}",
+        {"hidebroken": "true", "limit": limit, "order": "votes", "reverse": "true"},
+    )
+    if data is None:
+        return jsonify({"error": "Failed to fetch stations"}), 502
+    return jsonify([format_station(s) for s in data])
+
+
+@app.route("/api/stations/by-country/<countrycode>", methods=["GET"])
+def stations_by_country(countrycode):
+    limit = request.args.get("limit", 40, type=int)
+    data = radio_get(
+        f"stations/bycountrycodeexact/{countrycode.upper()}",
+        {"hidebroken": "true", "limit": limit, "order": "votes", "reverse": "true"},
+    )
+    if data is None:
+        return jsonify({"error": "Failed to fetch stations"}), 502
+    return jsonify([format_station(s) for s in data])
+
+
+@app.route("/api/stations/by-tag/<tag>", methods=["GET"])
+def stations_by_tag(tag):
+    limit = request.args.get("limit", 40, type=int)
+    data = radio_get(
+        f"stations/bytag/{tag}",
+        {"hidebroken": "true", "limit": limit, "order": "votes", "reverse": "true"},
+    )
+    if data is None:
+        return jsonify({"error": "Failed to fetch stations"}), 502
+    return jsonify([format_station(s) for s in data])
+
+
+@app.route("/api/countries", methods=["GET"])
+def list_countries():
+    data = radio_get("countries", {"order": "name", "hidebroken": "true"})
+    if data is None:
+        return jsonify({"error": "Failed to fetch countries"}), 502
+    return jsonify([
+        {"name": c.get("name", ""), "stationcount": c.get("stationcount", 0)}
+        for c in data
+        if c.get("name") and c.get("stationcount", 0) > 5
+    ])
+
+
+@app.route("/api/languages", methods=["GET"])
+def list_languages():
+    data = radio_get("languages", {"order": "stationcount", "reverse": "true", "hidebroken": "true"})
+    if data is None:
+        return jsonify({"error": "Failed to fetch languages"}), 502
+    return jsonify([
+        {"name": l.get("name", ""), "stationcount": l.get("stationcount", 0)}
+        for l in data
+        if l.get("name") and l.get("stationcount", 0) > 5
+    ][:60])
+
+
+@app.route("/api/tags", methods=["GET"])
+def list_tags():
+    data = radio_get("tags", {"order": "stationcount", "reverse": "true", "hidebroken": "true"})
+    if data is None:
+        return jsonify({"error": "Failed to fetch tags"}), 502
+    return jsonify([
+        {"name": t.get("name", ""), "stationcount": t.get("stationcount", 0)}
+        for t in data
+        if t.get("name") and len(t.get("name", "")) <= 30 and t.get("stationcount", 0) > 10
+    ][:60])
+
+
+@app.route("/api/station/click/<station_uuid>", methods=["POST"])
+def station_click(station_uuid):
+    radio_get(f"url/{station_uuid}")
+    return jsonify({"ok": True})
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5001))
+    app.run(debug=True, port=port)
