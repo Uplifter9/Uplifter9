@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5001';
+const RADIO_HOST = 'https://de1.api.radio-browser.info';
 
 function FallbackIcon({ size = 48 }) {
   return (
@@ -31,7 +31,7 @@ export default function RadioPlayer({ station, onClose }) {
     setStatus('loading');
     setPlaying(false);
 
-    fetch(`${API_URL}/api/station/click/${station.id}`, { method: 'POST' }).catch(() => {});
+    fetch(`${RADIO_HOST}/json/url/${station.id}`, { headers: { 'User-Agent': 'GlobalRadioApp/1.0' } }).catch(() => {});
 
     const audio = audioRef.current;
     audio.src = station.url;

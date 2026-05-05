@@ -1,6 +1,42 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:5001';
+const RADIO_HOSTS = [
+  'https://de1.api.radio-browser.info',
+  'https://at1.api.radio-browser.info',
+  'https://nl1.api.radio-browser.info',
+];
+
+const HEADERS = { 'User-Agent': 'GlobalRadioApp/1.0' };
+
+async function radioFetch(path, params = {}) {
+  const qs = new URLSearchParams(params).toString();
+  for (const host of RADIO_HOSTS) {
+    try {
+      const res = await fetch(`${host}/json/${path}${qs ? '?' + qs : ''}`, { headers: HEADERS });
+      if (res.ok) return res.json();
+    } catch {
+      // try next host
+    }
+  }
+  throw new Error('All Radio Browser hosts unreachable');
+}
+
+function formatStation(s) {
+  return {
+    id: s.stationuuid || '',
+    name: s.name || '',
+    url: s.url_resolved || s.url || '',
+    favicon: s.favicon || '',
+    country: s.country || '',
+    countrycode: s.countrycode || '',
+    language: s.language || '',
+    tags: s.tags || '',
+    bitrate: s.bitrate || 0,
+    votes: s.votes || 0,
+    codec: s.codec || '',
+    homepage: s.homepage || '',
+  };
+}
 
 export function useRadioStations() {
   const [stations, setStations] = useState([]);
@@ -13,21 +49,18 @@ export function useRadioStations() {
     setError(null);
     try {
       const hasFilter = Object.values(activeFilters).some(v => v.trim() !== '');
-      let url;
+      let data;
       if (hasFilter) {
-        const params = new URLSearchParams();
-        if (activeFilters.name)     params.set('name', activeFilters.name);
-        if (activeFilters.language) params.set('language', activeFilters.language);
-        if (activeFilters.country)  params.set('country', activeFilters.country);
-        if (activeFilters.tag)      params.set('tag', activeFilters.tag);
-        url = `${API_URL}/api/stations/search?${params}`;
+        const params = { hidebroken: 'true', limit: 60, order: 'votes', reverse: 'true' };
+        if (activeFilters.name)     params.name = activeFilters.name;
+        if (activeFilters.language) params.language = activeFilters.language;
+        if (activeFilters.country)  params.country = activeFilters.country;
+        if (activeFilters.tag)      params.tag = activeFilters.tag;
+        data = await radioFetch('stations/search', params);
       } else {
-        url = `${API_URL}/api/stations/top?limit=60`;
+        data = await radioFetch('stations/topvote', { limit: 60, hidebroken: 'true' });
       }
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      setStations(data);
+      setStations(data.map(formatStation));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -36,8 +69,8 @@ export function useRadioStations() {
   }, []);
 
   useEffect(() => {
-    const debounce = setTimeout(() => fetchStations(filters), 400);
-    return () => clearTimeout(debounce);
+    const t = setTimeout(() => fetchStations(filters), 400);
+    return () => clearTimeout(t);
   }, [filters, fetchStations]);
 
   return { stations, loading, error, filters, setFilters, refetch: () => fetchStations(filters) };
@@ -50,13 +83,13 @@ export function useFilterOptions() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API_URL}/api/languages`).then(r => r.json()).catch(() => []),
-      fetch(`${API_URL}/api/countries`).then(r => r.json()).catch(() => []),
-      fetch(`${API_URL}/api/tags`).then(r => r.json()).catch(() => []),
-    ]).then(([langs, countries, tags]) => {
-      setLanguages(langs);
-      setCountries(countries);
-      setTags(tags);
+      radioFetch('languages', { order: 'stationcount', reverse: 'true', hidebroken: 'true' }).catch(() => []),
+      radioFetch('countries', { order: 'name', hidebroken: 'true' }).catch(() => []),
+      radioFetch('tags',      { order: 'stationcount', reverse: 'true', hidebroken: 'true' }).catch(() => []),
+    ]).then(([langs, ctrs, tgs]) => {
+      setLanguages(langs.filter(l => l.name && l.stationcount > 5).slice(0, 60));
+      setCountries(ctrs.filter(c => c.name && c.stationcount > 5));
+      setTags(tgs.filter(t => t.name && t.name.length <= 30 && t.stationcount > 10).slice(0, 60));
     });
   }, []);
 
