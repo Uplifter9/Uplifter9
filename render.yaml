@@ -1,0 +1,28 @@
+# Render Blueprint — one-click deploy on https://render.com
+# Usage: push this repo to GitHub, click "New → Blueprint" on Render and point it
+# at the repo. Render will create both services from this file.
+services:
+  - type: web
+    name: cosmos-backend
+    runtime: docker
+    dockerfilePath: astrology/backend/Dockerfile
+    dockerContext: astrology/backend
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8000
+
+  - type: web
+    name: cosmos-frontend
+    runtime: static
+    buildCommand: cd astrology/frontend && npm ci && npm run build
+    staticPublishPath: astrology/frontend/dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://cosmos-backend-2nk6.onrender.com/api
+    routes:
+      # SPA fallback
+      - type: rewrite
+        source: /*
+        destination: /index.html

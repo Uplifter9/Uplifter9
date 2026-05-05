@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "lang": "en",
+    "name": "English",
+    "direction": "ltr"
+  },
+  "app": {
+    "title": "Cosmos — Premium Astrology Forecasting",
+    "subtitle": "Precise natal chart analysis, forecasts and recommendations",
+    "tagline": "Your chart. Your timing. Your life.",
+    "loading": "Computing your chart…",
+    "error_generic": "Something went wrong. Please try again.",
+    "language": "Language",
+    "footer": "Powered by Swiss Ephemeris"
+  },
+  "nav": {
+    "home": "Home",
+    "chart": "Natal Chart",
+    "aspects": "Aspects",
+    "analysis": "Analysis",
+    "predictions": "Predictions",
+    "recommendations": "Recommendations",
+    "about": "About"
+  },
+  "form": {
+    "heading": "Birth Details",
+    "description": "Provide exact date, time and place of birth for a precise chart.",
+    "first_name": "First name",
+    "date_of_birth": "Date of birth",
+    "time_of_birth": "Time of birth",
+    "time_hint": "Exact time affects the Ascendant, houses and sensitive points.",
+    "place": "Place of birth (city)",
+    "country": "Country",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "timezone": "Timezone",
+    "timezone_auto": "Auto-detect",
+    "house_system": "House system",
+    "generate": "Generate Chart",
+    "required": "Required",
+    "invalid_date": "Invalid date",
+    "invalid_coords": "Invalid coordinates"
+  },
+  "house_systems": {
+    "placidus": "Placidus",
+    "koch": "Koch",
+    "whole": "Whole Sign",
+    "equal": "Equal"
+  },
+  "signs": {
+    "aries": "Aries", "taurus": "Taurus", "gemini": "Gemini",
+    "cancer": "Cancer", "leo": "Leo", "virgo": "Virgo",
+    "libra": "Libra", "scorpio": "Scorpio", "sagittarius": "Sagittarius",
+    "capricorn": "Capricorn", "aquarius": "Aquarius", "pisces": "Pisces"
+  },
+  "sign_symbols": {
+    "aries": "♈", "taurus": "♉", "gemini": "♊", "cancer": "♋",
+    "leo": "♌", "virgo": "♍", "libra": "♎", "scorpio": "♏",
+    "sagittarius": "♐", "capricorn": "♑", "aquarius": "♒", "pisces": "♓"
+  },
+  "planets": {
+    "sun": "Sun", "moon": "Moon", "mercury": "Mercury", "venus": "Venus",
+    "mars": "Mars", "jupiter": "Jupiter", "saturn": "Saturn", "uranus": "Uranus",
+    "neptune": "Neptune", "pluto": "Pluto", "chiron": "Chiron",
+    "true_node": "North Node", "south_node": "South Node", "lilith": "Lilith",
+    "asc": "Ascendant", "mc": "Midheaven (MC)", "ic": "IC", "dsc": "Descendant"
+  },
+  "planet_symbols": {
+    "sun": "☉", "moon": "☽", "mercury": "☿", "venus": "♀", "mars": "♂",
+    "jupiter": "♃", "saturn": "♄", "uranus": "♅", "neptune": "♆", "pluto": "♇",
+    "chiron": "⚷", "true_node": "☊", "south_node": "☋", "lilith": "⚸",
+    "asc": "ASC", "mc": "MC", "ic": "IC", "dsc": "DSC"
+  },
+  "aspects": {
+    "conjunction": "Conjunction", "opposition": "Opposition", "square": "Square",
+    "trine": "Trine", "sextile": "Sextile", "quincunx": "Quincunx",
+    "semisextile": "Semi-sextile", "semisquare": "Semi-square",
+    "sesquiquadrate": "Sesquiquadrate"
+  },
+  "aspect_symbols": {
+    "conjunction": "☌", "opposition": "☍", "square": "□", "trine": "△",
+    "sextile": "✶", "quincunx": "⚻", "semisextile": "⚺",
+    "semisquare": "∠", "sesquiquadrate": "⚼"
+  },
+  "elements": {"fire": "Fire", "earth": "Earth", "air": "Air", "water": "Water"},
+  "qualities": {"cardinal": "Cardinal", "fixed": "Fixed", "mutable": "Mutable"},
+  "polarity": {"masculine": "Masculine / Active", "feminine": "Feminine / Receptive"},
+  "hemispheres": {
+    "east": "East (independence)",
+    "west": "West (relationships)",
+    "north": "North (inner world)",
+    "south": "South (public world)"
+  },
+  "dignities": {
+    "domicile": "Domicile — full strength",
+    "exaltation": "Exaltation — elevated expression",
+    "detriment": "Detriment — weakened, needs work",
+    "fall": "Fall — fragile, asks for integration",
+    "peregrine": "Peregrine / neutral"
+  },
+  "houses": {
+    "1": "1st House — self and appearance",
+    "2": "2nd House — money, values and resources",
+    "3": "3rd House — communication, learning and siblings",
+    "4": "4th House — home, family and roots",
+    "5": "5th House — creativity, romance and children",
+    "6": "6th House — work, routine and health",
+    "7": "7th House — partnerships",
+    "8": "8th House — intimacy, transformation and shared resources",
+    "9": "9th House — philosophy, travel and higher learning",
+    "10": "10th House — career, status and life goals",
+    "11": "11th House — friends, community and future vision",
+    "12": "12th House — subconscious, spirituality and solitude"
+  },
+  "patterns": {
+    "stellium": "Stellium", "grand_trine": "Grand Trine",
+    "t_square": "T-square", "grand_cross": "Grand Cross",
+    "yod": "Yod (Finger of God)", "kite": "Kite",
+    "mystic_rectangle": "Mystic Rectangle"
+  }
+}

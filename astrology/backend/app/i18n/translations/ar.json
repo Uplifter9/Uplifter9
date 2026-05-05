@@ -1,0 +1,109 @@
+{
+  "meta": {"lang": "ar", "name": "العربية", "direction": "rtl"},
+  "app": {
+    "title": "كوزموس — تنبؤات فلكية احترافية",
+    "subtitle": "تحليل دقيق لخريطة الميلاد وتوقعات وتوصيات",
+    "tagline": "خريطتك. توقيتك. حياتك.",
+    "loading": "يتم حساب خريطتك…",
+    "error_generic": "حدث خطأ. حاول مرة أخرى.",
+    "language": "اللغة",
+    "footer": "مدعوم بـ Swiss Ephemeris"
+  },
+  "nav": {
+    "home": "الرئيسية", "chart": "خريطة الميلاد", "aspects": "التناظرات",
+    "analysis": "التحليل", "predictions": "التوقعات",
+    "recommendations": "التوصيات", "about": "حول"
+  },
+  "form": {
+    "heading": "تفاصيل الميلاد",
+    "description": "أدخل التاريخ والوقت والمكان بدقة للحصول على خريطة دقيقة.",
+    "first_name": "الاسم الأول",
+    "date_of_birth": "تاريخ الميلاد",
+    "time_of_birth": "وقت الميلاد",
+    "time_hint": "الوقت الدقيق يؤثر على الطالع والبيوت والنقاط الحساسة.",
+    "place": "مكان الميلاد (المدينة)",
+    "country": "الدولة",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "timezone": "المنطقة الزمنية",
+    "timezone_auto": "اكتشاف تلقائي",
+    "house_system": "نظام البيوت",
+    "generate": "أنشئ الخريطة",
+    "required": "مطلوب",
+    "invalid_date": "تاريخ غير صالح",
+    "invalid_coords": "إحداثيات غير صالحة"
+  },
+  "house_systems": {
+    "placidus": "بلاسيدوس", "koch": "كوخ", "whole": "البيوت الكاملة", "equal": "البيوت المتساوية"
+  },
+  "signs": {
+    "aries": "الحمل", "taurus": "الثور", "gemini": "الجوزاء", "cancer": "السرطان",
+    "leo": "الأسد", "virgo": "العذراء", "libra": "الميزان", "scorpio": "العقرب",
+    "sagittarius": "القوس", "capricorn": "الجدي", "aquarius": "الدلو", "pisces": "الحوت"
+  },
+  "sign_symbols": {
+    "aries": "♈", "taurus": "♉", "gemini": "♊", "cancer": "♋",
+    "leo": "♌", "virgo": "♍", "libra": "♎", "scorpio": "♏",
+    "sagittarius": "♐", "capricorn": "♑", "aquarius": "♒", "pisces": "♓"
+  },
+  "planets": {
+    "sun": "الشمس", "moon": "القمر", "mercury": "عطارد", "venus": "الزهرة",
+    "mars": "المريخ", "jupiter": "المشتري", "saturn": "زحل", "uranus": "أورانوس",
+    "neptune": "نبتون", "pluto": "بلوتو", "chiron": "كيرون",
+    "true_node": "العقدة الشمالية", "south_node": "العقدة الجنوبية", "lilith": "ليليث",
+    "asc": "الطالع", "mc": "وسط السماء", "ic": "قاع السماء", "dsc": "الغارب"
+  },
+  "planet_symbols": {
+    "sun": "☉", "moon": "☽", "mercury": "☿", "venus": "♀", "mars": "♂",
+    "jupiter": "♃", "saturn": "♄", "uranus": "♅", "neptune": "♆", "pluto": "♇",
+    "chiron": "⚷", "true_node": "☊", "south_node": "☋", "lilith": "⚸",
+    "asc": "ASC", "mc": "MC", "ic": "IC", "dsc": "DSC"
+  },
+  "aspects": {
+    "conjunction": "اقتران", "opposition": "مقابلة", "square": "تربيع",
+    "trine": "تثليث", "sextile": "تسديس", "quincunx": "كوينكونكس",
+    "semisextile": "نصف تسديس", "semisquare": "نصف تربيع",
+    "sesquiquadrate": "تربيع ونصف"
+  },
+  "aspect_symbols": {
+    "conjunction": "☌", "opposition": "☍", "square": "□", "trine": "△",
+    "sextile": "✶", "quincunx": "⚻", "semisextile": "⚺",
+    "semisquare": "∠", "sesquiquadrate": "⚼"
+  },
+  "elements": {"fire": "نار", "earth": "تراب", "air": "هواء", "water": "ماء"},
+  "qualities": {"cardinal": "متحرك", "fixed": "ثابت", "mutable": "متغير"},
+  "polarity": {"masculine": "ذكوري / نشط", "feminine": "أنثوي / متلقٍ"},
+  "hemispheres": {
+    "east": "الشرق (الاستقلال)",
+    "west": "الغرب (العلاقات)",
+    "north": "الشمال (العالم الداخلي)",
+    "south": "الجنوب (العالم العام)"
+  },
+  "dignities": {
+    "domicile": "البيت الطبيعي — قوة كاملة",
+    "exaltation": "الشرف — تعبير راقٍ",
+    "detriment": "الهبوط — ضعف يتطلب عملاً",
+    "fall": "السقوط — هش ويتطلب دمجاً",
+    "peregrine": "محايد"
+  },
+  "houses": {
+    "1": "البيت الأول — الذات والمظهر",
+    "2": "البيت الثاني — المال والقيم والموارد",
+    "3": "البيت الثالث — التواصل والتعلم والإخوة",
+    "4": "البيت الرابع — البيت والعائلة والجذور",
+    "5": "البيت الخامس — الإبداع والرومانسية والأطفال",
+    "6": "البيت السادس — العمل والروتين والصحة",
+    "7": "البيت السابع — الشراكات",
+    "8": "البيت الثامن — الحميمية والتحول والموارد المشتركة",
+    "9": "البيت التاسع — الفلسفة والسفر والتعلم العالي",
+    "10": "البيت العاشر — الوظيفة والمكانة",
+    "11": "البيت الحادي عشر — الأصدقاء والمجتمع والرؤية",
+    "12": "البيت الثاني عشر — اللاوعي والروحانية والعزلة"
+  },
+  "patterns": {
+    "stellium": "ستيليوم", "grand_trine": "المثلث الكبير",
+    "t_square": "T-square", "grand_cross": "الصليب الكبير",
+    "yod": "يود (إصبع الرب)", "kite": "الطائرة الورقية",
+    "mystic_rectangle": "المستطيل الصوفي"
+  }
+}

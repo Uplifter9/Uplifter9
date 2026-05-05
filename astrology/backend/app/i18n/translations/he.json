@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "lang": "he",
+    "name": "עברית",
+    "direction": "rtl"
+  },
+  "app": {
+    "title": "קוסמוס – חיזוי אסטרולוגי פרימיום",
+    "subtitle": "ניתוח מפת לידה מדויק, תחזיות והמלצות לעתיד",
+    "tagline": "המפה שלך. התזמון שלך. החיים שלך.",
+    "loading": "מחשב את המפה שלך...",
+    "error_generic": "אירעה שגיאה. נסה שוב.",
+    "language": "שפה",
+    "footer": "נבנה באהבה עם Swiss Ephemeris"
+  },
+  "nav": {
+    "home": "בית",
+    "chart": "מפת לידה",
+    "aspects": "היבטים",
+    "analysis": "ניתוח",
+    "predictions": "תחזיות",
+    "recommendations": "המלצות",
+    "about": "אודות"
+  },
+  "form": {
+    "heading": "פרטי לידה",
+    "description": "כדי לייצר מפת לידה מדויקת אנו זקוקים לתאריך, לשעה המדויקת ולמקום הלידה.",
+    "first_name": "שם פרטי",
+    "date_of_birth": "תאריך לידה",
+    "time_of_birth": "שעת לידה",
+    "time_hint": "שעה מדויקת משפיעה על עליית המזל, הבתים ורגישים.",
+    "place": "מקום לידה (עיר)",
+    "country": "מדינה",
+    "latitude": "קו רוחב",
+    "longitude": "קו אורך",
+    "timezone": "אזור זמן",
+    "timezone_auto": "זהה אוטומטית",
+    "house_system": "שיטת בתים",
+    "generate": "צור מפת לידה",
+    "required": "שדה חובה",
+    "invalid_date": "תאריך לא תקין",
+    "invalid_coords": "קואורדינטות לא תקינות"
+  },
+  "house_systems": {
+    "placidus": "פלסידוס",
+    "koch": "קוך",
+    "whole": "בתים שלמים",
+    "equal": "בתים שווים"
+  },
+  "signs": {
+    "aries": "טלה",
+    "taurus": "שור",
+    "gemini": "תאומים",
+    "cancer": "סרטן",
+    "leo": "אריה",
+    "virgo": "בתולה",
+    "libra": "מאזניים",
+    "scorpio": "עקרב",
+    "sagittarius": "קשת",
+    "capricorn": "גדי",
+    "aquarius": "דלי",
+    "pisces": "דגים"
+  },
+  "sign_symbols": {
+    "aries": "♈", "taurus": "♉", "gemini": "♊", "cancer": "♋",
+    "leo": "♌", "virgo": "♍", "libra": "♎", "scorpio": "♏",
+    "sagittarius": "♐", "capricorn": "♑", "aquarius": "♒", "pisces": "♓"
+  },
+  "planets": {
+    "sun": "שמש",
+    "moon": "ירח",
+    "mercury": "מרקורי",
+    "venus": "ונוס",
+    "mars": "מאדים",
+    "jupiter": "יופיטר",
+    "saturn": "שבתאי",
+    "uranus": "אורנוס",
+    "neptune": "נפטון",
+    "pluto": "פלוטו",
+    "chiron": "כירון",
+    "true_node": "קשר הירח הצפוני",
+    "south_node": "קשר הירח הדרומי",
+    "lilith": "לילית",
+    "asc": "אופק / עליית המזל",
+    "mc": "מרידיאן עליון (MC)",
+    "ic": "מרידיאן תחתון (IC)",
+    "dsc": "שקיעה (DSC)"
+  },
+  "planet_symbols": {
+    "sun": "☉", "moon": "☽", "mercury": "☿", "venus": "♀", "mars": "♂",
+    "jupiter": "♃", "saturn": "♄", "uranus": "♅", "neptune": "♆", "pluto": "♇",
+    "chiron": "⚷", "true_node": "☊", "south_node": "☋", "lilith": "⚸",
+    "asc": "ASC", "mc": "MC", "ic": "IC", "dsc": "DSC"
+  },
+  "aspects": {
+    "conjunction": "צמידות",
+    "opposition": "התנגדות",
+    "square": "ריבוע",
+    "trine": "משולש",
+    "sextile": "שישונית",
+    "quincunx": "קווינקונקס",
+    "semisextile": "חצי שישונית",
+    "semisquare": "חצי ריבוע",
+    "sesquiquadrate": "שלושת רבעי ריבוע"
+  },
+  "aspect_symbols": {
+    "conjunction": "☌", "opposition": "☍", "square": "□", "trine": "△",
+    "sextile": "✶", "quincunx": "⚻", "semisextile": "⚺",
+    "semisquare": "∠", "sesquiquadrate": "⚼"
+  },
+  "elements": {
+    "fire": "אש",
+    "earth": "אדמה",
+    "air": "אוויר",
+    "water": "מים"
+  },
+  "qualities": {
+    "cardinal": "יוצר",
+    "fixed": "קבוע",
+    "mutable": "מתחלף"
+  },
+  "polarity": {
+    "masculine": "זכרי / אקטיבי",
+    "feminine": "נקבי / פאסיבי"
+  },
+  "hemispheres": {
+    "east": "מזרח (עצמאות)",
+    "west": "מערב (קשרים)",
+    "north": "צפון (עולם פנימי)",
+    "south": "דרום (עולם ציבורי)"
+  },
+  "dignities": {
+    "domicile": "בית טבעי – עוצמה רבה",
+    "exaltation": "אקזלטציה – מתפקד באיכות מרוממת",
+    "detriment": "גלות – מוחלש, דורש עבודה",
+    "fall": "נפילה – שבריר, קורא להבנה רחבה",
+    "peregrine": "ניטרלי"
+  },
+  "houses": {
+    "1": "בית ראשון – זהות ומראה חיצוני",
+    "2": "בית שני – כסף, ערכים ומשאבים",
+    "3": "בית שלישי – תקשורת, לימודים ואחים",
+    "4": "בית רביעי – בית, משפחה ושורשים",
+    "5": "בית חמישי – יצירתיות, רומנטיקה וילדים",
+    "6": "בית שישי – עבודה, שגרה ובריאות",
+    "7": "בית שביעי – זוגיות ושותפויות",
+    "8": "בית שמיני – אינטימיות, מיניות, טרנספורמציה וכספים משותפים",
+    "9": "בית תשיעי – פילוסופיה, מסעות והשכלה גבוהה",
+    "10": "בית עשירי – קריירה, סטטוס ומטרות חיים",
+    "11": "בית אחד-עשר – חברויות, קהילה וחזון לעתיד",
+    "12": "בית שנים-עשר – תת-מודע, רוחניות ופרישות"
+  },
+  "patterns": {
+    "stellium": "סטליום",
+    "grand_trine": "משולש גדול",
+    "t_square": "T-square",
+    "grand_cross": "צלב גדול",
+    "yod": "יוד (אצבע אלוהית)",
+    "kite": "עפיפון",
+    "mystic_rectangle": "המלבן המיסטי"
+  }
+}
