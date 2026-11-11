@@ -1,0 +1,20 @@
+[Unit]
+Description=fbwatch Telegram bot (Facebook group summaries)
+After=network-online.target fbwatch-xvfb.service
+Wants=network-online.target
+Requires=fbwatch-xvfb.service
+StartLimitIntervalSec=0
+
+[Service]
+User=fbwatch
+WorkingDirectory=__APP_DIR__
+Environment=FBWATCH_ENV=/opt/fbwatch/.env
+Environment=DISPLAY=:99
+Environment=PLAYWRIGHT_BROWSERS_PATH=/opt/fbwatch/browsers
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/fbwatch/venv/bin/python -m fbwatch.bot
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

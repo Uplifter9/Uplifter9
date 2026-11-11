@@ -1,0 +1,12 @@
+[Unit]
+Description=fbwatch virtual screen (Xvfb :99)
+After=network.target
+
+[Service]
+User=fbwatch
+ExecStart=/usr/bin/Xvfb :99 -screen 0 900x1100x24 -nolisten tcp -ac
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
