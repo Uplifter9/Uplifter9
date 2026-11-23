@@ -1,6 +1,11 @@
 {
   "title": "ארבע שנים של ממשלת נתניהו: מה השתבש",
-  "format": { "width": 1080, "height": 1920, "fps": 30, "orientation": "vertical (reels)" },
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "orientation": "vertical (reels)"
+  },
   "language": "he",
   "voice": "he-IL-AvriNeural",
   "targetLengthSec": 65,
@@ -43,13 +48,13 @@
     },
     {
       "id": "s7_draft",
-      "narration": "ובזמן שאנשי המילואים נשחקים, הקואליציה מקדמת חוק שמעגן פטור מגיוס לחרדים.",
+      "narration": "ובזמן שאנשי המילואים נשחקים, הקואליציה ניסתה לעגן פטור מגיוס לחרדים, וביולי 2026 העבירה חוק שאוסר לעצור משתמטים.",
       "visual": "מאזניים לא מאוזנים: בצד אחד דמות של מילואימניק עם תיק כבד שמתנשמת, בצד השני כף ריקה",
       "onScreenText": "הנטל לא שוויוני"
     },
     {
       "id": "s8_inquiry",
-      "narration": "והממשלה סירבה להקים ועדת חקירה ממלכתית לאסון השבעה באוקטובר.",
+      "narration": "והממשלה סירבה להקים ועדת חקירה ממלכתית לשבעה באוקטובר, ואף הודיעה לבג״ץ שלא תקים אותה לפני הבחירות.",
       "visual": "דלת עם שלט 'ועדת חקירה ממלכתית' נסגרת, סימן שאלה גדול מתנדנד",
       "onScreenText": "איפה ועדת החקירה?"
     },
@@ -59,5 +64,17 @@
       "visual": "חזרה לציר הזמן, ארבעת הכישלונות המרכזיים מופיעים כאייקונים ומתכנסים, כותרת סיום",
       "onScreenText": "המחיר: של כולנו"
     }
-  ]
+  ],
+  "factCheck": {
+    "checkedOn": "2026-11-23",
+    "sources": {
+      "s2": "https://www.news4jax.com/news/world/2024/01/01/israels-supreme-court-overturns-a-key-component-of-netanyahus-polarizing-judicial-overhaul/",
+      "s3": "https://www.history.com/this-day-in-history/october-7-hamas-attack-israel",
+      "s4": "https://www.axios.com/2025/10/13/israel-gaza-peace-deal-hostages-freed-hamas",
+      "s5": "https://english.alarabiya.net/News/middle-east/2025/03/07/residents-of-israel-s-north-slowly-returning-home-after-hezbollah-truce",
+      "s6": "https://en.globes.co.il/en/article-moodys-cuts-israels-credit-rating-for-first-time-ever-1001470864",
+      "s7": "https://www.timesofisrael.com/knesset-passes-law-banning-arrests-of-haredi-draft-dodgers-legitimizing-ongoing-non-enlistment/",
+      "s8": "https://www.thejc.com/news/israel/no-october-7-inquiry-before-elections-israel-xcgbj2pb"
+    }
+  }
 }
