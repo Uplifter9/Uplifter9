@@ -20,13 +20,13 @@ const House: React.FC<{ x: number; y: number; lit: boolean; p: number }> = ({ x,
 export const S5North: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const fEvac = wordFrame(vo, "פונו");
+  const fEvac = wordFrame(vo, "מפונים");
   const houses: { x: number; y: number }[] = [];
   for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) houses.push({ x: 210 + c * 220 + (r % 2) * 50, y: 780 + r * 150 });
   const walkX = interpolate(frame, [fEvac, dur], [1180, -120], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
-    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="cool" accent={["60,000"]} accentColor={theme.yellow}>
-      <Counter to={60000} start={4} length={45} x={540} y={540} size={140} label="תושבים פונו מבתיהם" color={theme.yellow} labelColor={theme.text} />
+    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="cool" accent={["60,000"]} accentColor={theme.yellow} chapter={{ period: "אוקטובר 2023 – מרץ 2025", from: 9, to: 26 }} source="נתונים רשמיים, דרך AFP / Al Arabiya">
+      <Counter to={60000} start={4} length={45} x={540} y={580} size={140} label="תושבים פונו מבתיהם" color={theme.yellow} labelColor={theme.text} />
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <path d="M -20 1250 Q 300 640 600 700 Q 900 760 1100 660 L 1100 1300 L -20 1300 Z" fill="#1E4A3A" opacity={0.7} />
         {houses.map((h, i) => {

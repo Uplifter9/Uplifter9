@@ -1,5 +1,5 @@
 """Generate narration mp3 + word timings for each scene in script.json."""
-import asyncio, json, os, subprocess, sys
+import asyncio, json, os, re, subprocess, sys
 import edge_tts
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,7 @@ async def gen(scene, voice):
                 f.write(chunk["data"])
             elif chunk["type"] == "WordBoundary":
                 sub.feed(chunk)
-                words.append({"text": chunk["text"], "startMs": chunk["offset"] / 1e4,
+                words.append({"text": re.sub("[\u0591-\u05C7]", "", chunk["text"]), "startMs": chunk["offset"] / 1e4,
                               "endMs": (chunk["offset"] + chunk["duration"]) / 1e4})
     with open(mp3[:-4] + ".vtt", "w", encoding="utf-8") as f:
         f.write(sub.get_srt())

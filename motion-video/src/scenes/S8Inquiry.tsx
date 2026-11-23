@@ -8,19 +8,19 @@ import type { SceneProps } from "../types";
 export const S8Inquiry: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const fRefuse = wordFrame(vo, "סירבה");
-  const fCourt = wordFrame(vo, "לבג");
+  const fRefuse = wordFrame(vo, "לסרב");
+  const fCourt = wordFrame(vo, "שהיא");
   const doorP = springAt(frame, fps, 4, 13);
   const close = ease(frame, fRefuse + 4, fRefuse + 22, 0, 1);
   const lockP = springAt(frame, fps, fRefuse + 22, 10);
   const quoteP = springAt(frame, fps, fCourt, 13);
   const qSwing = Math.sin(frame / 12) * 12;
   const dx = 380;
-  const dy = 520;
+  const dy = 580;
   const dw = 340;
   const dh = 560;
   return (
-    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="warm" accent={["ועדת"]} accentColor={theme.yellow}>
+    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="warm" accent={["ועדת"]} accentColor={theme.yellow} chapter={{ period: "נובמבר 2025 – אוקטובר 2026", from: 34, to: 45 }} source="Times of Israel · Jerusalem Post">
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g opacity={Math.min(1, doorP * 1.5)} transform={`translate(0,${(1 - doorP) * 150})`}>
           <rect x={dx - 120} y={dy - 140} width={dw + 240} height={110} rx={18} fill={theme.paper} />
@@ -44,9 +44,9 @@ export const S8Inquiry: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
       <div style={{ position: "absolute", left: 40, top: 560, fontFamily: FONT, fontWeight: 900, fontSize: 300, color: theme.accent, transformOrigin: "50% 0%", transform: `rotate(${qSwing}deg) scale(${springAt(frame, fps, 14, 10)})`, textShadow: "0 10px 40px rgba(0,0,0,0.5)" }}>
         ?
       </div>
-      <div style={{ position: "absolute", left: 140, right: 140, top: 1170, padding: "22px 20px", borderRadius: 22, background: "rgba(255,255,255,0.1)", border: "3px solid rgba(255,255,255,0.2)", fontFamily: FONT, direction: "rtl", textAlign: "center", opacity: Math.min(1, quoteP * 1.5), transform: `scale(${0.6 + 0.4 * quoteP})` }}>
-        <div style={{ fontSize: 30, fontWeight: 700, color: theme.muted }}>הממשלה לבג״ץ:</div>
-        <div style={{ fontSize: 50, fontWeight: 900, color: theme.text }}>לא לפני הבחירות</div>
+      <div style={{ position: "absolute", left: 140, right: 140, top: 1200, padding: "22px 20px", borderRadius: 22, background: "rgba(255,255,255,0.1)", border: "3px solid rgba(255,255,255,0.2)", fontFamily: FONT, direction: "rtl", textAlign: "center", opacity: Math.min(1, quoteP * 1.5), transform: `scale(${0.6 + 0.4 * quoteP})` }}>
+        <div style={{ fontSize: 30, fontWeight: 700, color: theme.muted }}>הוועדה שהממשלה עצמה הציעה:</div>
+        <div style={{ fontSize: 50, fontWeight: 900, color: theme.text }}>נדחתה לאחרי הבחירות</div>
       </div>
     </SceneFrame>
   );

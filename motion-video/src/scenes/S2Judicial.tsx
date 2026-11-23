@@ -25,7 +25,7 @@ export const S2Judicial: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const shake = frame > fStrike + 4 && frame < fStrike + 12 ? Math.sin(frame * 3) * 6 : 0;
   const crowdDim = ease(frame, fCourt, fCourt + 15, 1, 0.55);
   return (
-    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} accent={["קרעה"]}>
+    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} accent={["קרעה"]} chapter={{ period: "ינואר 2023 – ינואר 2024", from: 0, to: 12 }} source="בג״ץ, פסק הדין בעניין עילת הסבירות, 1.1.2024">
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g opacity={crowdDim}>
           {crowd.map((c, i) => {

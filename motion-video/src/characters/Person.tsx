@@ -26,6 +26,7 @@ export type PersonProps = {
   signColor?: string;
   backpack?: boolean;
   helmet?: boolean;
+  suit?: boolean;
   seed?: number;
   flip?: boolean;
 };
@@ -203,12 +204,13 @@ export const Person: React.FC<PersonProps> = ({
   skin = theme.skin,
   hair = "#3A2A20",
   talk = 0,
-  mood = "smile",
+  mood = "neutral",
   item = "none",
   signText,
   signColor,
   backpack = false,
   helmet = false,
+  suit = false,
   seed = 0,
   flip = false,
 }) => {
@@ -237,6 +239,14 @@ export const Person: React.FC<PersonProps> = ({
           {/* torso */}
           <rect x={-42} y={96} width={84} height={130} rx={32} fill={shirt} />
           <rect x={-42} y={190} width={84} height={30} rx={12} fill={pants} opacity={0.9} />
+          {suit ? (
+            <g>
+              <polygon points="-14,98 14,98 0,150" fill="#F2F4F7" />
+              <polygon points="-6,102 6,102 4,170 0,178 -4,170" fill="#B3282D" />
+              <polygon points="-40,104 -14,98 -2,160" fill="#000" opacity={0.18} />
+              <polygon points="40,104 14,98 2,160" fill="#000" opacity={0.18} />
+            </g>
+          ) : null}
           {backpack ? (
             <g stroke="#2F3720" strokeWidth={9} strokeLinecap="round">
               <line x1={-26} y1={100} x2={-22} y2={190} />
@@ -256,8 +266,9 @@ export const Person: React.FC<PersonProps> = ({
               <circle cx={-14} cy={54} r={5} fill="#1B1B22" />
               <circle cx={14} cy={54} r={5} fill="#1B1B22" />
             </g>
-            <circle cx={-24} cy={66} r={6} fill="#E88" opacity={0.35} />
-            <circle cx={24} cy={66} r={6} fill="#E88" opacity={0.35} />
+            {/* eyebrows: serious */}
+            <line x1={-22} y1={mood === "sad" ? 40 : 42} x2={-7} y2={mood === "sad" ? 44 : 40} stroke="#2A1E18" strokeWidth={4.5} strokeLinecap="round" />
+            <line x1={22} y1={mood === "sad" ? 40 : 42} x2={7} y2={mood === "sad" ? 44 : 40} stroke="#2A1E18" strokeWidth={4.5} strokeLinecap="round" />
             {mouthOpen > 0.05 ? (
               <ellipse cx={0} cy={72} rx={10} ry={2 + mouthOpen * 9} fill="#5A1E22" />
             ) : mood === "smile" ? (
@@ -267,7 +278,6 @@ export const Person: React.FC<PersonProps> = ({
             ) : (
               <line x1={-9} y1={73} x2={9} y2={73} stroke="#5A1E22" strokeWidth={4} strokeLinecap="round" />
             )}
-            {pose === "tired" ? <path d="M 34 30 q 6 10 0 14 q -6 -4 0 -14 z" fill="#8FD3FF" /> : null}
           </g>
           {/* arms */}
           <Arm sx={-44} ua={a.uaL} fa={a.faL} shirt={shirt} skin={skin} t={t} seed={seed} />

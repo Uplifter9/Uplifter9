@@ -1,713 +1,778 @@
 [
  {
   "id": "s1_intro",
-  "durationSec": 5.928,
+  "durationSec": 6.0,
   "words": [
    {
+    "text": "אלה",
+    "startMs": 98.583,
+    "endMs": 310.833
+   },
+   {
+    "text": "הכישלונות",
+    "startMs": 310.833,
+    "endMs": 1018.374
+   },
+   {
+    "text": "של",
+    "startMs": 1018.416,
+    "endMs": 1183.499
+   },
+   {
+    "text": "ממשלת",
+    "startMs": 1183.5,
+    "endMs": 1631.583
+   },
+   {
+    "text": "הדמים",
+    "startMs": 1631.583,
+    "endMs": 2303.749
+   },
+   {
     "text": "ארבע",
-    "startMs": 100.0,
-    "endMs": 453.791
+    "startMs": 3092.458,
+    "endMs": 3434.416
    },
    {
     "text": "שנים",
-    "startMs": 453.791,
-    "endMs": 1043.416
+    "startMs": 3434.416,
+    "endMs": 4047.624
    },
    {
-    "text": "ממשלה",
-    "startMs": 1830.666,
-    "endMs": 2408.499
+    "text": "לפי",
+    "startMs": 4248.125,
+    "endMs": 4566.5
    },
    {
-    "text": "אחת",
-    "startMs": 2408.5,
-    "endMs": 2974.541
-   },
-   {
-    "text": "בואו",
-    "startMs": 3763.208,
-    "endMs": 4128.791
-   },
-   {
-    "text": "נעשה",
-    "startMs": 4128.791,
-    "endMs": 4447.166
-   },
-   {
-    "text": "חשבון",
-    "startMs": 4447.166,
-    "endMs": 5119.332
+    "text": "הסדר",
+    "startMs": 4566.5,
+    "endMs": 5203.291
    }
   ],
-  "onScreenText": "4 שנים. ממשלה אחת."
+  "onScreenText": "כישלונות ממשלת הדמים"
  },
  {
   "id": "s2_judicial",
-  "durationSec": 12.192,
+  "durationSec": 13.128,
   "words": [
    {
     "text": "ינואר 2023",
     "startMs": 98.583,
-    "endMs": 2056.124
+    "endMs": 2244.7909
    },
    {
     "text": "הממשלה",
-    "startMs": 2303.791,
-    "endMs": 2893.416
+    "startMs": 3030.666,
+    "endMs": 3702.832
    },
    {
     "text": "מציגה",
-    "startMs": 2893.416,
-    "endMs": 3306.124
+    "startMs": 3702.833,
+    "endMs": 4162.749
    },
    {
     "text": "את",
-    "startMs": 3306.125,
-    "endMs": 3388.666
+    "startMs": 4162.75,
+    "endMs": 4245.291
    },
    {
     "text": "ההפיכה",
-    "startMs": 3388.666,
-    "endMs": 3777.832
+    "startMs": 4245.291,
+    "endMs": 4634.416
    },
    {
     "text": "המשפטית",
-    "startMs": 3777.833,
-    "endMs": 4556.124
+    "startMs": 4634.416,
+    "endMs": 5471.666
    },
    {
     "text": "רבבות",
-    "startMs": 5342.0,
-    "endMs": 5849.041
+    "startMs": 6261.791,
+    "endMs": 6768.874
    },
    {
     "text": "יוצאים",
-    "startMs": 5849.041,
-    "endMs": 6167.457
+    "startMs": 6768.875,
+    "endMs": 7087.25
    },
    {
     "text": "לרחובות",
-    "startMs": 6167.458,
-    "endMs": 6627.374
+    "startMs": 7087.25,
+    "endMs": 7547.166
    },
    {
     "text": "שבוע",
-    "startMs": 6627.375,
-    "endMs": 6933.958
+    "startMs": 7547.166,
+    "endMs": 7853.749
    },
    {
     "text": "אחרי",
-    "startMs": 6933.958,
-    "endMs": 7240.541
+    "startMs": 7853.791,
+    "endMs": 8160.374
    },
    {
     "text": "שבוע",
-    "startMs": 7240.583,
-    "endMs": 7865.583
+    "startMs": 8160.375,
+    "endMs": 8797.166
    },
    {
     "text": "ובית",
-    "startMs": 8113.208,
-    "endMs": 8396.208
+    "startMs": 9044.791,
+    "endMs": 9327.791
    },
    {
     "text": "המשפט",
-    "startMs": 8396.208,
-    "endMs": 8761.791
+    "startMs": 9327.833,
+    "endMs": 9693.416
    },
    {
     "text": "העליון",
-    "startMs": 8761.791,
-    "endMs": 9186.332
+    "startMs": 9693.416,
+    "endMs": 10117.916
    },
    {
     "text": "פוסל",
-    "startMs": 9186.333,
-    "endMs": 9563.666
+    "startMs": 10117.916,
+    "endMs": 10495.291
    },
    {
     "text": "את",
-    "startMs": 9563.666,
-    "endMs": 9657.999
+    "startMs": 10495.291,
+    "endMs": 10601.416
    },
    {
     "text": "חוק",
-    "startMs": 9658.0,
-    "endMs": 9964.583
+    "startMs": 10601.416,
+    "endMs": 10907.999
    },
    {
     "text": "ביטול",
-    "startMs": 9964.625,
-    "endMs": 10412.75
+    "startMs": 10908.0,
+    "endMs": 11356.125
    },
    {
     "text": "עילת",
-    "startMs": 10412.75,
-    "endMs": 10672.166
+    "startMs": 11356.125,
+    "endMs": 11615.541
    },
    {
     "text": "הסבירות",
-    "startMs": 10672.166,
-    "endMs": 11391.499
+    "startMs": 11615.583,
+    "endMs": 12334.916
    }
   ],
   "onScreenText": "ההפיכה המשפטית קרעה את העם"
  },
  {
   "id": "s3_oct7",
-  "durationSec": 11.424,
+  "durationSec": 16.224,
   "words": [
    {
-    "text": "השבעה",
-    "startMs": 97.166,
-    "endMs": 627.832
+    "text": "שבעה",
+    "startMs": 98.583,
+    "endMs": 546.708
    },
    {
     "text": "באוקטובר",
-    "startMs": 627.833,
-    "endMs": 1158.499
+    "startMs": 546.708,
+    "endMs": 1089.166
    },
    {
     "text": "2023",
-    "startMs": 1158.5,
-    "endMs": 2656.124
+    "startMs": 1089.166,
+    "endMs": 2563.208
    },
    {
-    "text": "הכישלון",
-    "startMs": 2903.791,
-    "endMs": 3410.832
+    "text": "שש",
+    "startMs": 2775.458,
+    "endMs": 3058.458
+   },
+   {
+    "text": "עשרים",
+    "startMs": 3058.5,
+    "endMs": 3435.833
+   },
+   {
+    "text": "ותשע",
+    "startMs": 3435.833,
+    "endMs": 3824.999
+   },
+   {
+    "text": "בבוקר",
+    "startMs": 3825.0,
+    "endMs": 4497.166
+   },
+   {
+    "text": "חמאס",
+    "startMs": 5284.416,
+    "endMs": 5767.916
+   },
+   {
+    "text": "פורץ",
+    "startMs": 5767.916,
+    "endMs": 6098.124
+   },
+   {
+    "text": "את",
+    "startMs": 6098.125,
+    "endMs": 6168.875
+   },
+   {
+    "text": "הגדר",
+    "startMs": 6168.875,
+    "endMs": 6805.666
+   },
+   {
+    "text": "והמדינה",
+    "startMs": 7053.291,
+    "endMs": 7654.707
+   },
+   {
+    "text": "מתעוררת",
+    "startMs": 7654.708,
+    "endMs": 8149.999
+   },
+   {
+    "text": "למחדל",
+    "startMs": 8150.0,
+    "endMs": 8527.375
    },
    {
     "text": "הביטחוני",
-    "startMs": 3410.833,
-    "endMs": 4082.999
+    "startMs": 8527.375,
+    "endMs": 9187.75
    },
    {
     "text": "החמור",
-    "startMs": 4083.0,
-    "endMs": 4613.666
+    "startMs": 9187.75,
+    "endMs": 9694.791
    },
    {
-    "text": "בתולדות",
-    "startMs": 4613.666,
-    "endMs": 5073.582
-   },
-   {
-    "text": "המדינה",
-    "startMs": 5073.583,
-    "endMs": 5663.208
+    "text": "בתולדותיה",
+    "startMs": 9694.791,
+    "endMs": 10449.499
    },
    {
     "text": "כאלף",
-    "startMs": 6451.875,
-    "endMs": 6947.166
+    "startMs": 11239.625,
+    "endMs": 11734.916
    },
    {
     "text": "ומאתיים",
-    "startMs": 6947.166,
-    "endMs": 7359.916
+    "startMs": 11734.916,
+    "endMs": 12159.416
    },
    {
     "text": "נרצחים",
-    "startMs": 7359.916,
-    "endMs": 8114.624
+    "startMs": 12159.416,
+    "endMs": 12914.124
    },
    {
     "text": "ומאתיים",
-    "startMs": 8326.875,
-    "endMs": 8786.791
+    "startMs": 13126.416,
+    "endMs": 13586.332
    },
    {
     "text": "חמישים",
-    "startMs": 8786.791,
-    "endMs": 9293.874
+    "startMs": 13586.333,
+    "endMs": 14093.416
    },
    {
     "text": "ואחד",
-    "startMs": 9293.875,
-    "endMs": 9647.625
+    "startMs": 14093.416,
+    "endMs": 14435.374
    },
    {
     "text": "נחטפים",
-    "startMs": 9647.625,
-    "endMs": 10107.541
+    "startMs": 14435.375,
+    "endMs": 14895.291
    },
    {
     "text": "לעזה",
-    "startMs": 10107.541,
-    "endMs": 10626.416
+    "startMs": 14895.291,
+    "endMs": 15414.166
    }
   ],
-  "onScreenText": "7 באוקטובר: הכישלון הגדול"
+  "onScreenText": "7 באוקטובר: המחדל הגדול"
  },
  {
-  "id": "s4_hostages",
-  "durationSec": 8.568,
+  "id": "s4_north",
+  "durationSec": 9.864,
   "words": [
    {
-    "text": "חטופים",
+    "text": "מאוקטובר",
     "startMs": 98.583,
-    "endMs": 817.916
+    "endMs": 699.999
    },
    {
-    "text": "נשארו",
-    "startMs": 817.916,
-    "endMs": 1313.207
+    "text": "2023",
+    "startMs": 700.0,
+    "endMs": 2138.666
    },
-   {
-    "text": "בשבי",
-    "startMs": 1313.208,
-    "endMs": 1643.416
-   },
-   {
-    "text": "יותר",
-    "startMs": 1643.416,
-    "endMs": 1902.832
-   },
-   {
-    "text": "משנתיים",
-    "startMs": 1902.833,
-    "endMs": 2692.916
-   },
-   {
-    "text": "החטופים",
-    "startMs": 3478.791,
-    "endMs": 3974.041
-   },
-   {
-    "text": "החיים",
-    "startMs": 3974.041,
-    "endMs": 4292.457
-   },
-   {
-    "text": "האחרונים",
-    "startMs": 4292.458,
-    "endMs": 4988.208
-   },
-   {
-    "text": "חזרו",
-    "startMs": 4988.208,
-    "endMs": 5412.749
-   },
-   {
-    "text": "רק",
-    "startMs": 5412.75,
-    "endMs": 5625.0
-   },
-   {
-    "text": "באוקטובר",
-    "startMs": 5625.0,
-    "endMs": 6167.458
-   },
-   {
-    "text": "2025",
-    "startMs": 6167.458,
-    "endMs": 7759.416
-   }
-  ],
-  "onScreenText": "יותר משנתיים בשבי"
- },
- {
-  "id": "s5_north",
-  "durationSec": 5.952,
-  "words": [
    {
     "text": "כשישים",
-    "startMs": 98.583,
-    "endMs": 629.249
+    "startMs": 2386.333,
+    "endMs": 2916.999
    },
    {
     "text": "אלף",
-    "startMs": 629.25,
-    "endMs": 959.416
+    "startMs": 2917.0,
+    "endMs": 3235.375
    },
    {
     "text": "תושבי",
-    "startMs": 959.416,
-    "endMs": 1230.624
+    "startMs": 3235.375,
+    "endMs": 3518.375
    },
    {
     "text": "הצפון",
-    "startMs": 1230.666,
-    "endMs": 1690.582
+    "startMs": 3518.416,
+    "endMs": 4001.874
    },
    {
-    "text": "פונו",
-    "startMs": 1690.583,
-    "endMs": 1949.999
+    "text": "מפונים",
+    "startMs": 4001.875,
+    "endMs": 4485.375
    },
    {
     "text": "מבתיהם",
-    "startMs": 1950.0,
-    "endMs": 2681.125
+    "startMs": 4485.375,
+    "endMs": 5204.708
    },
    {
-    "text": "ורבים",
-    "startMs": 2928.791,
-    "endMs": 3365.082
+    "text": "רק",
+    "startMs": 5990.583,
+    "endMs": 6273.583
    },
    {
-    "text": "מהם",
-    "startMs": 3365.083,
-    "endMs": 3589.124
+    "text": "במרץ",
+    "startMs": 6273.583,
+    "endMs": 6721.708
    },
    {
-    "text": "חיו",
-    "startMs": 3589.166,
-    "endMs": 3883.957
+    "text": "2025",
+    "startMs": 6721.708,
+    "endMs": 7948.125
    },
    {
-    "text": "כעקורים",
-    "startMs": 3883.958,
-    "endMs": 4332.083
+    "text": "הותר",
+    "startMs": 7948.125,
+    "endMs": 8231.125
    },
    {
-    "text": "יותר",
-    "startMs": 4332.083,
-    "endMs": 4615.083
+    "text": "להם",
+    "startMs": 8231.125,
+    "endMs": 8419.791
    },
    {
-    "text": "משנה",
-    "startMs": 4615.083,
-    "endMs": 5157.541
+    "text": "לחזור",
+    "startMs": 8419.791,
+    "endMs": 9068.374
    }
   ],
   "onScreenText": "60,000 עקורים בצפון"
  },
  {
-  "id": "s6_economy",
-  "durationSec": 11.088,
+  "id": "s5_economy",
+  "durationSec": 14.904,
   "words": [
    {
-    "text": "בכלכלה",
+    "text": "בפברואר",
     "startMs": 98.583,
-    "endMs": 947.624
+    "endMs": 711.791
+   },
+   {
+    "text": "2024",
+    "startMs": 711.791,
+    "endMs": 1914.6239
    },
    {
     "text": "דירוג",
-    "startMs": 1159.916,
-    "endMs": 1490.082
+    "startMs": 1914.625,
+    "endMs": 2209.416
    },
    {
     "text": "האשראי",
-    "startMs": 1490.083,
-    "endMs": 1855.666
+    "startMs": 2209.416,
+    "endMs": 2563.207
    },
    {
     "text": "של",
-    "startMs": 1855.666,
-    "endMs": 1985.374
+    "startMs": 2563.208,
+    "endMs": 2716.499
    },
    {
     "text": "ישראל",
-    "startMs": 1985.375,
-    "endMs": 2350.958
+    "startMs": 2716.5,
+    "endMs": 3282.541
    },
    {
-    "text": "הורד",
-    "startMs": 2350.958,
-    "endMs": 2610.374
+    "text": "יורד",
+    "startMs": 3282.541,
+    "endMs": 3600.957
    },
    {
     "text": "לראשונה",
-    "startMs": 2610.375,
-    "endMs": 3058.5
+    "startMs": 3600.958,
+    "endMs": 4072.624
    },
    {
     "text": "בהיסטוריה",
-    "startMs": 3058.5,
-    "endMs": 3836.791
+    "startMs": 4072.625,
+    "endMs": 4839.125
    },
    {
-    "text": "המע״מ",
-    "startMs": 4037.25,
-    "endMs": 4367.458
+    "text": "בינואר",
+    "startMs": 5626.416,
+    "endMs": 6121.707
    },
    {
-    "text": "עלה",
-    "startMs": 4367.458,
-    "endMs": 4544.333
+    "text": "2025",
+    "startMs": 6121.708,
+    "endMs": 7194.791
+   },
+   {
+    "text": "מס",
+    "startMs": 7194.791,
+    "endMs": 7442.416
+   },
+   {
+    "text": "ערך",
+    "startMs": 7442.458,
+    "endMs": 7713.666
+   },
+   {
+    "text": "מוסף",
+    "startMs": 7713.666,
+    "endMs": 8185.374
+   },
+   {
+    "text": "עולה",
+    "startMs": 8185.375,
+    "endMs": 8409.416
    },
    {
     "text": "לשמונה",
-    "startMs": 4544.333,
-    "endMs": 4992.458
+    "startMs": 8409.416,
+    "endMs": 8833.957
    },
    {
     "text": "עשרה",
-    "startMs": 4992.458,
-    "endMs": 5299.041
+    "startMs": 8833.958,
+    "endMs": 9105.166
    },
    {
     "text": "אחוז",
-    "startMs": 5299.041,
-    "endMs": 5841.499
+    "startMs": 9105.208,
+    "endMs": 9659.458
    },
    {
     "text": "ולפי",
-    "startMs": 6030.208,
-    "endMs": 6360.374
+    "startMs": 9883.5,
+    "endMs": 10213.666
    },
    {
     "text": "מחקר",
-    "startMs": 6360.375,
-    "endMs": 7032.541
+    "startMs": 10213.666,
+    "endMs": 10862.249
    },
    {
     "text": "מחירי",
-    "startMs": 7233.0,
-    "endMs": 7598.583
+    "startMs": 11062.75,
+    "endMs": 11416.5
    },
    {
     "text": "המזון",
-    "startMs": 7598.583,
-    "endMs": 8129.249
+    "startMs": 11416.5,
+    "endMs": 11935.375
    },
    {
     "text": "עלו",
-    "startMs": 8129.25,
-    "endMs": 8270.75
+    "startMs": 11935.375,
+    "endMs": 12076.875
    },
    {
     "text": "בכמעט",
-    "startMs": 8270.75,
-    "endMs": 8671.708
+    "startMs": 12076.875,
+    "endMs": 12466.041
    },
    {
     "text": "עשרים",
-    "startMs": 8671.708,
-    "endMs": 8966.499
+    "startMs": 12466.041,
+    "endMs": 12760.832
    },
    {
     "text": "אחוז",
-    "startMs": 8966.5,
-    "endMs": 9273.083
+    "startMs": 12760.833,
+    "endMs": 13079.249
    },
    {
     "text": "בתקופת",
-    "startMs": 9273.125,
-    "endMs": 9674.041
+    "startMs": 13079.25,
+    "endMs": 13492.0
    },
    {
     "text": "הממשלה",
-    "startMs": 9674.041,
-    "endMs": 10299.041
+    "startMs": 13492.0,
+    "endMs": 14105.208
    }
   ],
   "onScreenText": "דירוג יורד, המזון מתייקר"
  },
  {
-  "id": "s7_draft",
-  "durationSec": 9.48,
+  "id": "s6_hostages",
+  "durationSec": 8.232,
   "words": [
    {
-    "text": "ובזמן",
+    "text": "אוקטובר 2025",
     "startMs": 98.583,
-    "endMs": 652.833
+    "endMs": 2268.374
+   },
+   {
+    "text": "החטופים",
+    "startMs": 3054.25,
+    "endMs": 3549.541
+   },
+   {
+    "text": "החיים",
+    "startMs": 3549.541,
+    "endMs": 3867.916
+   },
+   {
+    "text": "האחרונים",
+    "startMs": 3867.916,
+    "endMs": 4351.416
+   },
+   {
+    "text": "חוזרים",
+    "startMs": 4351.416,
+    "endMs": 4705.207
+   },
+   {
+    "text": "הביתה",
+    "startMs": 4705.208,
+    "endMs": 5400.958
+   },
+   {
+    "text": "אחרי",
+    "startMs": 5648.583,
+    "endMs": 6014.166
+   },
+   {
+    "text": "יותר",
+    "startMs": 6014.166,
+    "endMs": 6320.749
+   },
+   {
+    "text": "משנתיים",
+    "startMs": 6320.75,
+    "endMs": 6898.583
+   },
+   {
+    "text": "בשבי",
+    "startMs": 6898.583,
+    "endMs": 7441.041
+   }
+  ],
+  "onScreenText": "יותר משנתיים בשבי"
+ },
+ {
+  "id": "s7_draft",
+  "durationSec": 9.024,
+  "words": [
+   {
+    "text": "יולי 2026",
+    "startMs": 98.583,
+    "endMs": 2079.7069
+   },
+   {
+    "text": "בזמן",
+    "startMs": 2867.0,
+    "endMs": 3421.208
    },
    {
     "text": "שאנשי",
-    "startMs": 652.833,
-    "endMs": 982.999
+    "startMs": 3421.208,
+    "endMs": 3786.791
    },
    {
     "text": "המילואים",
-    "startMs": 983.0,
-    "endMs": 1301.416
+    "startMs": 3786.791,
+    "endMs": 4128.791
    },
    {
     "text": "נשחקים",
-    "startMs": 1301.416,
-    "endMs": 2020.749
+    "startMs": 4128.791,
+    "endMs": 4859.916
    },
    {
-    "text": "הקואליציה",
-    "startMs": 2209.416,
-    "endMs": 2822.624
+    "text": "הכנסת",
+    "startMs": 5072.166,
+    "endMs": 5555.666
    },
    {
-    "text": "ניסתה",
-    "startMs": 2822.625,
-    "endMs": 3164.625
-   },
-   {
-    "text": "לעגן",
-    "startMs": 3164.625,
-    "endMs": 3471.208
-   },
-   {
-    "text": "פטור",
-    "startMs": 3471.208,
-    "endMs": 3754.208
-   },
-   {
-    "text": "מגיוס",
-    "startMs": 3754.25,
-    "endMs": 4119.791
-   },
-   {
-    "text": "לחרדים",
-    "startMs": 4119.791,
-    "endMs": 4827.332
-   },
-   {
-    "text": "וביולי",
-    "startMs": 5086.791,
-    "endMs": 5511.332
-   },
-   {
-    "text": "2026",
-    "startMs": 5511.333,
-    "endMs": 6525.457
-   },
-   {
-    "text": "העבירה",
-    "startMs": 6525.458,
-    "endMs": 6855.666
+    "text": "מאשרת",
+    "startMs": 5555.666,
+    "endMs": 5968.416
    },
    {
     "text": "חוק",
-    "startMs": 6855.666,
-    "endMs": 7185.832
+    "startMs": 5968.416,
+    "endMs": 6251.416
    },
    {
     "text": "שאוסר",
-    "startMs": 7185.833,
-    "endMs": 7598.583
+    "startMs": 6251.416,
+    "endMs": 6652.374
    },
    {
     "text": "לעצור",
-    "startMs": 7598.583,
-    "endMs": 7928.791
+    "startMs": 6652.375,
+    "endMs": 7076.875
    },
    {
     "text": "משתמטים",
-    "startMs": 7928.791,
-    "endMs": 8683.499
+    "startMs": 7076.875,
+    "endMs": 7572.166
+   },
+   {
+    "text": "חרדים",
+    "startMs": 7572.166,
+    "endMs": 8232.541
    }
   ],
   "onScreenText": "הנטל לא שוויוני"
  },
  {
   "id": "s8_inquiry",
-  "durationSec": 7.848,
+  "durationSec": 8.4,
   "words": [
    {
-    "text": "והממשלה",
-    "startMs": 97.166,
-    "endMs": 828.291
-   },
-   {
-    "text": "סירבה",
-    "startMs": 828.291,
-    "endMs": 1217.457
-   },
-   {
-    "text": "להקים",
-    "startMs": 1217.458,
-    "endMs": 1547.624
-   },
-   {
-    "text": "ועדת",
-    "startMs": 1547.625,
-    "endMs": 1842.416
-   },
-   {
-    "text": "חקירה",
-    "startMs": 1842.458,
-    "endMs": 2255.208
-   },
-   {
-    "text": "ממלכתית",
-    "startMs": 2255.208,
-    "endMs": 2750.458
-   },
-   {
-    "text": "לשבעה",
-    "startMs": 2750.458,
-    "endMs": 3139.624
-   },
-   {
-    "text": "באוקטובר",
-    "startMs": 3139.625,
-    "endMs": 3917.916
-   },
-   {
-    "text": "ואף",
-    "startMs": 4177.375,
-    "endMs": 4460.375
-   },
-   {
-    "text": "הודיעה",
-    "startMs": 4460.375,
-    "endMs": 4743.375
-   },
-   {
-    "text": "לבג״ץ",
-    "startMs": 4743.416,
-    "endMs": 5238.666
-   },
-   {
-    "text": "שלא",
-    "startMs": 5238.666,
-    "endMs": 5533.457
-   },
-   {
-    "text": "תקים",
-    "startMs": 5533.5,
-    "endMs": 5816.5
-   },
-   {
-    "text": "אותה",
-    "startMs": 5816.5,
-    "endMs": 6064.125
-   },
-   {
-    "text": "לפני",
-    "startMs": 6064.166,
-    "endMs": 6323.582
+    "text": "ולקראת",
+    "startMs": 98.583,
+    "endMs": 570.291
    },
    {
     "text": "הבחירות",
-    "startMs": 6323.583,
-    "endMs": 7042.916
+    "startMs": 570.291,
+    "endMs": 1289.624
+   },
+   {
+    "text": "הממשלה",
+    "startMs": 1442.916,
+    "endMs": 1961.791
+   },
+   {
+    "text": "ממשיכה",
+    "startMs": 1961.791,
+    "endMs": 2374.541
+   },
+   {
+    "text": "לסרב",
+    "startMs": 2374.541,
+    "endMs": 2751.874
+   },
+   {
+    "text": "לוועדת",
+    "startMs": 2751.875,
+    "endMs": 3129.25
+   },
+   {
+    "text": "חקירה",
+    "startMs": 3129.25,
+    "endMs": 3506.583
+   },
+   {
+    "text": "ממלכתית",
+    "startMs": 3506.583,
+    "endMs": 4273.083
+   },
+   {
+    "text": "ואת",
+    "startMs": 4508.958,
+    "endMs": 4732.999
+   },
+   {
+    "text": "הוועדה",
+    "startMs": 4733.0,
+    "endMs": 5192.916
+   },
+   {
+    "text": "שהיא",
+    "startMs": 5192.916,
+    "endMs": 5369.791
+   },
+   {
+    "text": "עצמה",
+    "startMs": 5369.791,
+    "endMs": 5782.541
+   },
+   {
+    "text": "הציעה",
+    "startMs": 5782.541,
+    "endMs": 6207.082
+   },
+   {
+    "text": "דוחה",
+    "startMs": 6207.083,
+    "endMs": 6513.666
+   },
+   {
+    "text": "לאחרי",
+    "startMs": 6513.666,
+    "endMs": 6879.249
+   },
+   {
+    "text": "הבחירות",
+    "startMs": 6879.25,
+    "endMs": 7598.583
    }
   ],
   "onScreenText": "איפה ועדת החקירה?"
  },
  {
   "id": "s9_outro",
-  "durationSec": 5.688,
+  "durationSec": 6.504,
   "words": [
    {
     "text": "ארבע",
     "startMs": 100.0,
-    "endMs": 453.791
+    "endMs": 489.166
    },
    {
     "text": "שנים",
-    "startMs": 453.791,
-    "endMs": 1043.416
+    "startMs": 489.166,
+    "endMs": 878.291
+   },
+   {
+    "text": "של",
+    "startMs": 878.291,
+    "endMs": 1055.166
+   },
+   {
+    "text": "כישלונות",
+    "startMs": 1055.208,
+    "endMs": 1845.291
    },
    {
     "text": "והמחיר",
-    "startMs": 1830.666,
-    "endMs": 2762.249
+    "startMs": 2632.541,
+    "endMs": 3564.124
    },
    {
     "text": "שילמנו",
-    "startMs": 3550.958,
-    "endMs": 4128.791
+    "startMs": 4352.833,
+    "endMs": 4930.666
    },
    {
     "text": "אותו",
-    "startMs": 4128.791,
-    "endMs": 4329.249
+    "startMs": 4930.666,
+    "endMs": 5131.124
    },
    {
     "text": "כולנו",
-    "startMs": 4329.25,
-    "endMs": 4895.291
+    "startMs": 5131.125,
+    "endMs": 5697.166
    }
   ],
   "onScreenText": "המחיר: של כולנו"

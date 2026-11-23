@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { EASE, ease, springAt, wordFrame } from "../anim";
+import { EASE, ease, springAt } from "../anim";
 import { Counter } from "../components/Counter";
 import { SceneFrame } from "../components/SceneFrame";
 import { FONT, theme } from "../theme";
@@ -11,10 +11,10 @@ const MONTHS = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", 
 export const S4Hostages: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const fBack = wordFrame(vo, "החטופים");
+  const fBack = Math.round(dur * 0.5);
   const calP = springAt(frame, fps, 10, 13);
   // flip months from Oct 2023 (index 0) to Oct 2025 (index 24)
-  const m = interpolate(frame, [20, fBack + 20], [0, 24], { easing: EASE, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const m = interpolate(frame, [12, fBack], [0, 24], { easing: EASE, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const idx = Math.floor(m);
   const frac = m - idx;
   const flip = idx < 24 ? Math.abs(Math.cos(frac * Math.PI)) : 1;
@@ -23,7 +23,7 @@ export const S4Hostages: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const ribbonP = ease(frame, 8, 50, 0, 1);
   const done = idx >= 24;
   return (
-    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="warm" accent={["משנתיים"]} accentColor={theme.yellow}>
+    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} variant="warm" accent={["משנתיים"]} accentColor={theme.yellow} chapter={{ period: "אוקטובר 2023 – אוקטובר 2025", from: 9, to: 33 }} source="AP · Axios, 13.10.2025">
       {/* yellow ribbon, drawn in */}
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g transform={`translate(220,${760 + Math.sin(frame / 20) * 6}) rotate(${Math.sin(frame / 25) * 3})`}>
@@ -62,7 +62,7 @@ export const S4Hostages: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
           <div style={{ fontSize: 110, fontWeight: 900, color: theme.bg1 }}>{MONTHS[monthIdx]}</div>
         </div>
       </div>
-      <Counter to={730} start={20} length={fBack} x={540} y={1150} size={120} label="ימים בשבי, ויותר" color={theme.yellow} labelColor={theme.text} suffix="+" />
+      <Counter to={730} start={12} length={fBack - 12} x={540} y={1150} size={120} label="ימים בשבי, ויותר" color={theme.yellow} labelColor={theme.text} suffix="+" />
     </SceneFrame>
   );
 };

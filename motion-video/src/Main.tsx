@@ -20,7 +20,8 @@ import { S8Inquiry } from "./scenes/S8Inquiry";
 import { S9Outro } from "./scenes/S9Outro";
 
 const vo = voData as Vo[];
-const SCENES: React.FC<SceneProps>[] = [S1Intro, S2Judicial, S3Oct7, S4Hostages, S5North, S6Economy, S7Draft, S8Inquiry, S9Outro];
+// chronological order (matches script.json)
+const SCENES: React.FC<SceneProps>[] = [S1Intro, S2Judicial, S3Oct7, S5North, S6Economy, S4Hostages, S7Draft, S8Inquiry, S9Outro];
 
 // Varied transitions, never the same type twice in a row (12-18 frames).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

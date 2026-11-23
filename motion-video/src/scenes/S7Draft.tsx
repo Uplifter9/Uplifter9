@@ -9,7 +9,7 @@ import type { SceneProps } from "../types";
 export const S7Draft: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const fLaw = wordFrame(vo, "וביולי");
+  const fLaw = wordFrame(vo, "מאשרת");
   const scaleP = springAt(frame, fps, 6, 12);
   const tiltP = springAt(frame, fps, 30, 6); // underdamped wobble
   const tilt = 14 * tiltP + Math.sin(frame / 14) * 0.8; // right side (reservist) down
@@ -29,7 +29,7 @@ export const S7Draft: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
     </g>
   );
   return (
-    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} accent={["לא"]}>
+    <SceneFrame vo={vo} dur={dur} exitAt={exitAt} accent={["לא"]} chapter={{ period: "יולי 2026", from: 42, to: 42.6 }} source="Times of Israel, יולי 2026">
       <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
         <g opacity={Math.min(1, scaleP * 1.5)} transform={`translate(0,${(1 - scaleP) * 200})`}>
           <rect x={cx - 16} y={cy} width={32} height={520} rx={10} fill={theme.supportSoft} />
@@ -51,7 +51,7 @@ export const S7Draft: React.FC<SceneProps> = ({ vo, dur, exitAt }) => {
         style={{
           position: "absolute",
           left: 90,
-          top: 430,
+          top: 470,
           width: 900,
           padding: "26px 30px",
           boxSizing: "border-box",
