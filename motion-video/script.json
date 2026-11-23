@@ -18,7 +18,7 @@
     },
     {
       "id": "s2_judicial",
-      "narration": "ינואר 2023: הממשלה מציגה את ההפיכה המשפטית. מאות אלפים יוצאים לרחובות, ובית המשפט העליון פוסל את חוק ביטול עילת הסבירות.",
+      "narration": "ינואר 2023: הממשלה מציגה את ההפיכה המשפטית. רבבות יוצאים לרחובות שבוע אחרי שבוע, ובית המשפט העליון פוסל את חוק ביטול עילת הסבירות.",
       "visual": "המון עם שלטים ודגלים קופצים לפי הקצב, פטיש של שופט נוחת, חותמת 'בוטל' על מסמך החוק",
       "onScreenText": "ההפיכה המשפטית קרעה את העם"
     },
@@ -42,9 +42,9 @@
     },
     {
       "id": "s6_economy",
-      "narration": "בכלכלה: דירוג האשראי של ישראל הורד לראשונה בהיסטוריה, המע״מ עלה לשמונה עשרה אחוז, ויוקר המחיה ממשיך לטפס.",
-      "visual": "גרף קו של הדירוג יורד, מונה מע״מ מ-17% ל-18%, עגלת קניות שמחירה עולה",
-      "onScreenText": "דירוג יורד, מחירים עולים"
+      "narration": "בכלכלה: דירוג האשראי של ישראל הורד לראשונה בהיסטוריה, המע״מ עלה לשמונה עשרה אחוז, ולפי מחקר, מחירי המזון עלו בכמעט עשרים אחוז בתקופת הממשלה.",
+      "visual": "גרף קו של הדירוג יורד, מונה מע״מ מ-17% ל-18%, עגלת קניות עם מונה מחיר שעולה ל-+20%",
+      "onScreenText": "דירוג יורד, המזון מתייקר"
     },
     {
       "id": "s7_draft",
@@ -74,7 +74,9 @@
       "s5": "https://english.alarabiya.net/News/middle-east/2025/03/07/residents-of-israel-s-north-slowly-returning-home-after-hezbollah-truce",
       "s6": "https://en.globes.co.il/en/article-moodys-cuts-israels-credit-rating-for-first-time-ever-1001470864",
       "s7": "https://www.timesofisrael.com/knesset-passes-law-banning-arrests-of-haredi-draft-dodgers-legitimizing-ongoing-non-enlistment/",
-      "s8": "https://www.thejc.com/news/israel/no-october-7-inquiry-before-elections-israel-xcgbj2pb"
+      "s8": "https://www.thejc.com/news/israel/no-october-7-inquiry-before-elections-israel-xcgbj2pb",
+      "s2_protests": "https://www.axios.com/2023/01/14/israel-protests-netanyahu-judicial-overhaul-tel-aviv",
+      "s6_food": "https://www.i24news.tv/en/news/israel/economy/artc-meteoric-surge-food-prices-rose-by-nearly-20-during-the-government-s-term-according-to-a-new-study"
     }
   }
 }
